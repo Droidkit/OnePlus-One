@@ -1,0 +1,18 @@
+﻿<Controls:MetroWindow x:Name="SpashScreen" x:Class="DroidKit_OnePlus_One.Splash"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="Splash" Height="200" Width="500" Icon="resources/Droidkiticon.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowIconOnTitleBar="False" WindowStyle="None" BorderThickness="0" ShowTitleBar="False" Loaded="SpashScreen_Shown">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF00FFE8" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label x:Name="status" Content="Loading Application - Please Wait..." HorizontalAlignment="Center" Margin="120,164,110,0" VerticalAlignment="Center" FontSize="14" Width="270" Height="36" />
+        <Image HorizontalAlignment="Center" Height="120" Margin="0,0,0,40" VerticalAlignment="Center" Width="120" Source="resources/Droidkiticon.ico"/>
+
+    </Grid>
+</Controls:MetroWindow>
