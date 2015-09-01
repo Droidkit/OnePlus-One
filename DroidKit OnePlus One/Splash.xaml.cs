@@ -27,7 +27,6 @@ namespace DroidKit_OnePlus_One
     public partial class Splash : MetroWindow
     {
 
-        MainWindow m = new MainWindow();
         string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"/DroidKit");
         
         public Splash()
@@ -82,7 +81,6 @@ namespace DroidKit_OnePlus_One
            {
                status.Content = "Finished!";
                this.Close();
-               m.Show();
            });
 
            load.RunWorkerAsync();
