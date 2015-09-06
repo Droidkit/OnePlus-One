@@ -81,8 +81,8 @@ namespace DroidKit_OnePlus_One
            delegate(object o, RunWorkerCompletedEventArgs args)
            {
                status.Content = "Finished!";
-               this.Close();
                m.Show();
+               this.Close();
            });
 
            load.RunWorkerAsync();
