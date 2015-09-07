@@ -7,6 +7,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         Title="DroidKit - OnePlus One" Height="350" Width="570" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Roboto" Icon="resources/Droidkiticon.ico" Closing="MainWindow1_Closing" Initialized="MainWindow1_Initialized">
     <Grid>
+        <!-- fix dragablz wpf code -->
         <dragablz:TabablzControl Margin="0,0,0,20" BorderThickness="0.5,0" FontFamily="Roboto">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController/>
