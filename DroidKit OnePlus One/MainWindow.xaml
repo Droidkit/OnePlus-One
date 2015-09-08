@@ -7,8 +7,8 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         Title="DroidKit - OnePlus One" Height="350" Width="570" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Roboto" Icon="resources/Droidkiticon.ico" Closing="MainWindow1_Closing" Initialized="MainWindow1_Initialized">
     <Grid>
-        <!-- fix dragablz wpf code -->
-        <Dragablz:Dragablz.TableControll>
+        <!-- fix dragablz WPF code -->
+        <Dragablz:Dragablz.TabablzControl>
             <Dragablz:Dragablz.InterTabController>
                 <Dragablz:Dragablz.InterTabController/>
             </Dragablz:Dragablz.InterTabController>
@@ -92,7 +92,7 @@
                     <Label Content="Nothing Here yet. Follow the XDA Thread for updates..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" />
                 </Grid>
             </TabItem>
-        </Dragablz:Dragablz.TableControll>
+        </Dragablz:Dragablz.TabablzControl>
         <StatusBar VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="570" Margin="0,0,0,0" Height="30">
             <Label x:Name="Device" Content="Device" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,0" Width="Auto" Height="Auto" Foreground="White"/>
             <Label x:Name="AV" Content="Android Version" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,0" Width="Auto" Height="Auto" Foreground="White"/>
