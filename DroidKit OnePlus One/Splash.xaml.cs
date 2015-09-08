@@ -32,14 +32,16 @@ namespace DroidKit_OnePlus_One
         public Splash()
         {
             InitializeComponent();
+           
         }
 
 
-        private void SpashScreen_Shown(object sender, RoutedEventArgs e)
+        internal void SpashScreen_Shown(object sender, RoutedEventArgs e)
         {
-            BackgroundWorker load = new BackgroundWorker();
-            load.DoWork += new DoWorkEventHandler(load_splash);
-            load.RunWorkerCompleted += new RunWorkerCompletedEventHandler(load_done);
+            BackgroundWorker loadapp = new BackgroundWorker();
+            loadapp.DoWork += new DoWorkEventHandler(load_splash);
+            loadapp.RunWorkerCompleted += new RunWorkerCompletedEventHandler(load_done);
+            loadapp.RunWorkerAsync();
         }
 
         private void load_splash(object sender, DoWorkEventArgs e)
@@ -68,10 +70,12 @@ namespace DroidKit_OnePlus_One
             if (b > a)
             {
                 Dispatcher.BeginInvoke(new Action(() => status.Content = "Update available!"));
+                Thread.Sleep(100);
             }
             else
             {
                 Dispatcher.BeginInvoke(new Action(() => status.Content = "No Update available"));
+                Thread.Sleep(100);
             };
         }
         private void load_done(object sender, RunWorkerCompletedEventArgs e)
@@ -81,6 +85,5 @@ namespace DroidKit_OnePlus_One
                m.Show();
                this.Close();
         }
-
     }
 }
