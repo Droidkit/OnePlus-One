@@ -69,19 +69,20 @@ namespace DroidKit_OnePlus_One
             Version b = new Version(content);
             if (b > a)
             {
-                Dispatcher.BeginInvoke(new Action(() => status.Content = "Update available!"));
-                Thread.Sleep(100);
+                Dispatcher.BeginInvoke(new Action(() => status.Text = "Update available!"));
+                Thread.Sleep(2000);
             }
             else
             {
-                Dispatcher.BeginInvoke(new Action(() => status.Content = "No Update available"));
-                Thread.Sleep(100);
+                Dispatcher.BeginInvoke(new Action(() => status.Text = "No Update available"));
+                Thread.Sleep(2000);
             };
         }
         private void load_done(object sender, RunWorkerCompletedEventArgs e)
         {
                MainWindow m = new MainWindow();
-               status.Content = "Finished!";
+               status.Text = "Finished!";
+               Thread.Sleep(1000);
                m.Show();
                this.Close();
         }

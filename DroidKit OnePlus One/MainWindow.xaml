@@ -40,17 +40,10 @@
                     <Label Content="Cyanogen OS (Stock)" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,-200,0,0" />
                     <Expander x:Name="Download_Progress" Header="Download Progress" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Width="375" Height="100" IsExpanded="True">
                         <Grid>
-                            <ProgressBar x:Name="bar" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="15" Margin="0,-30,0,0" Background="#FF2196F3" >
-                                <ProgressBar.Foreground>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="Black" Offset="0"/>
-                                        <GradientStop Color="#FF1B78FF" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </ProgressBar.Foreground>
-                            </ProgressBar>
-                            <Label x:Name="labelSpeed" Content="0 kb/s" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-30,0,0"/>
-                            <Label x:Name="labelDownloaded" Content="0 MB" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-30,-225,0" />
-                            <Label x:Name="Status" Content="Status" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="35,-30,0,0" Foreground="White" Width="200" TextBlock.TextAlignment="Center"/>
+                            <ProgressBar x:Name="bar" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="10" Margin="0,-30,0,0" Background="#FF2196F3" Value="0" BorderBrush="#FF020202" />
+                            <TextBlock x:Name="labelSpeed" Text="0 kb/s" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,-30,0,0"/>
+                            <TextBlock x:Name="labelDownloaded" Text="0 MB" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-30,-225,0" />
+                            <TextBlock x:Name="Status" Text="Status" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="34,20,0,0" Foreground="Black" Width="200" TextBlock.TextAlignment="Center"/>
                             <Button x:Name="stop" Content="Cancel Download" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="stop_Click"/>
                         </Grid>
                     </Expander>
@@ -69,9 +62,9 @@
                     <Button x:Name="rb_fb" Content="Reboot into fastboot" HorizontalAlignment="Center" Margin="200,-50,0,0" VerticalAlignment="Center" Width="150"/>
                     <Button x:Name="rb_ad" Content="Reboot Into Android" HorizontalAlignment="Center" Margin="200,30,0,0" VerticalAlignment="Center" Width="150"/>
                     <Label Content="Reboot into..." HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,-125,0,0" />
-                 <TextBlock Text="TWRP Recovery is Recomended for use with this ToolKit!" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,-210" />
+                    <TextBlock Text="TWRP Recovery is Recomended for use with this ToolKit!" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,-210" />
                     <TextBlock x:Name="warning" Text="Select an option!" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="-200,0,0,-80" Foreground="Red" Visibility="Hidden" />
-                </Grid>   
+                </Grid>
             </TabItem>
             <TabItem Header="Logging" IsEnabled="False" Visibility="Hidden" Opacity="0">
                 <Grid>

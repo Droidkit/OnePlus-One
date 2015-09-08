@@ -240,7 +240,8 @@ namespace DroidKit_OnePlus_One
                 if (!File.Exists(path+"/OOS.zip"))
                 {
                     sw.Start();
-                    Status.Content = "Downloading...";
+                    Status.Text = "Downloading...";
+                    bar.Value = 0;
                     try { webclient.DownloadFileAsync(new Uri("https://s3.amazonaws.com/oxygenos.oneplus.net/ONE_12_A.01_150813.zip"), path + "/OOS.zip"); }
                     catch (Exception ex)
                     {
@@ -257,9 +258,9 @@ namespace DroidKit_OnePlus_One
 
         private void progressOOS(object sender, DownloadProgressChangedEventArgs e)
         {
-            labelSpeed.Content = string.Format("{0} mb/s", (e.BytesReceived / 1000000d / sw.Elapsed.TotalSeconds).ToString("0.00"));
+            labelSpeed.Text = string.Format("{0} mb/s", (e.BytesReceived / 1000000d / sw.Elapsed.TotalSeconds).ToString("0.00"));
             bar.Value = e.ProgressPercentage;
-            labelDownloaded.Content = string.Format("{0} MB's / {1} MB's",
+            labelDownloaded.Text = string.Format("{0} MB's / {1} MB's",
                 (e.BytesReceived / 1024d / 1024d).ToString("0.00"),
                 (e.TotalBytesToReceive / 1024d / 1024d).ToString("0.00"));
         }
@@ -273,22 +274,22 @@ namespace DroidKit_OnePlus_One
                 { File.Delete(path+"/OOS.zip"); }
                 MessageBox.Show("Download has been cancelled.");
                 bar.Value = 0;
-                Status.Content = "";
-                labelDownloaded.Content = "0mb / 0mb";
-                labelSpeed.Content = "0mb/s";
+                Status.Text = "Cancelled";
+                labelDownloaded.Text = "0mb / 0mb";
+                labelSpeed.Text = "0mb/s";
             }
             if (File.Exists(path+"/OOS.zip"))
             {
                 MessageBox.Show("Download completed!");
-                Status.Content = "Download Completed";
+                Status.Text = "Download Completed";
             }
                 if (e.Cancelled == false && !File.Exists(path+"/OOS.zip"))
                 {
                     MessageBox.Show("There was an internal error. Please report this on the forum thread!");
                     bar.Value = 0;
-                    Status.Content = "";
-                    labelDownloaded.Content = "0mb / 0mb";
-                    labelSpeed.Content = "0mb/s";
+                    Status.Text = "Internal Erorr";
+                    labelDownloaded.Text = "0mb / 0mb";
+                    labelSpeed.Text = "0mb/s";
                 }
             }
         
@@ -330,8 +331,8 @@ namespace DroidKit_OnePlus_One
                 if (!File.Exists(path+"/stock.zip"))
                 {
                     sw.Start();
-
-                    Status.Content = "Downloading...";
+                    bar.Value = 0;
+                    Status.Text = "Downloading...";
                     try { webclient.DownloadFileAsync(new Uri("http://builds.cyngn.com/factory/bacon/cm-12.0-YNG1TAS2I3-bacon-signed-fastboot.zip"), path + "/stock.zip"); }
                     catch (Exception ex)
                     {
@@ -353,20 +354,20 @@ namespace DroidKit_OnePlus_One
                 { File.Delete(path + "/stock.zip"); }
                 MessageBox.Show("Download has been cancelled.");
                 bar.Value = 0;
-                Status.Content = "";
-                labelDownloaded.Content = "0mb / 0mb";
-                labelSpeed.Content = "0mb/s";
+                Status.Text = "Cancelled";
+                labelDownloaded.Text = "0mb / 0mb";
+                labelSpeed.Text = "0mb/s";
             }
             if (File.Exists(path + "/stock.zip"))
             {
                 MessageBox.Show("Download completed!");
-                Status.Content = "Extracting zip...";
+                Status.Text = "Extracting zip...";
                 string zipPath = path+"/stock.zip";
                 string extractPath = path+"/stock";
                 if (File.Exists(path + "/stock.zip"))
                 {
                     {
-                        Status.Content = "Unziping...";
+                        Status.Text = "Unziping...";
                         await Task.Run(() =>  System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath));
                         MessageBox.Show("Unzip Complete. You can now flash back to stock!");
                     }
@@ -376,16 +377,16 @@ namespace DroidKit_OnePlus_One
             {
                 MessageBox.Show("There was an internal error. Please report this on the forum thread!");
                 bar.Value = 0;
-                Status.Content = "";
-                labelDownloaded.Content = "0mb / 0mb";
-                labelSpeed.Content = "0mb/s";
+                Status.Text = "Cancelled";
+                labelDownloaded.Text = "0mb / 0mb";
+                labelSpeed.Text = "0mb/s";
             }
         }
         private void progressCOS(object sender, DownloadProgressChangedEventArgs e)
         {
-            labelSpeed.Content = string.Format("{0} mb/s", (e.BytesReceived / 1000000d / sw.Elapsed.TotalSeconds).ToString("0.00"));
+            labelSpeed.Text = string.Format("{0} mb/s", (e.BytesReceived / 1000000d / sw.Elapsed.TotalSeconds).ToString("0.00"));
             bar.Value = e.ProgressPercentage;
-            labelDownloaded.Content = string.Format("{0} MB's / {1} MB's",
+            labelDownloaded.Text = string.Format("{0} MB's / {1} MB's",
                 (e.BytesReceived / 1024d / 1024d).ToString("0.00"),
                 (e.TotalBytesToReceive / 1024d / 1024d).ToString("0.00"));
         }
@@ -468,9 +469,9 @@ namespace DroidKit_OnePlus_One
 
         private void stop_Click(object sender, RoutedEventArgs e)
         {            
-            labelSpeed.Content = "0 mb/s";
-            labelDownloaded.Content = "0 mb";
-            Status.Content = "Cancelled";
+            labelSpeed.Text = "0 mb/s";
+            labelDownloaded.Text = "0 mb";
+            Status.Text = "Cancelled";
             bar.Value = -0 ;
             webclient.CancelAsync();
             if (File.Exists(path+"/stock.zip")){File.Delete(path+"/stock.zip");}
