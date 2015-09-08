@@ -18,7 +18,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Net;
-// To add check for updates! and exception
 namespace DroidKit_OnePlus_One
 {
     /// <summary>
@@ -26,9 +25,7 @@ namespace DroidKit_OnePlus_One
     /// </summary>
     public partial class Splash : MetroWindow
     {
-
-        string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "/DroidKit");
-
+        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"/DroidKit");
         public Splash()
         {
             InitializeComponent();
@@ -46,10 +43,10 @@ namespace DroidKit_OnePlus_One
 
         private void load_splash(object sender, DoWorkEventArgs e)
         {
-            if (Directory.Exists(path))
+            if (Directory.Exists(doclocation))
             { }
-            else
-            { Directory.CreateDirectory(path); }
+            if (!Directory.Exists(doclocation))
+            { Directory.CreateDirectory(doclocation); }
             ProcessStartInfo startup = new ProcessStartInfo();
             startup.CreateNoWindow = true;
             startup.FileName = "adb.exe";

@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
+using System.ComponentModel;
 
 namespace DroidKit_OnePlus_One
 {
@@ -37,82 +39,54 @@ namespace DroidKit_OnePlus_One
                     }
                     if (GB16.IsChecked == true)
                     {
+                        BackgroundWorker flash64 = new BackgroundWorker();
+                        flash64.DoWork += new DoWorkEventHandler(doflash64);
+                        flash64.RunWorkerCompleted += new RunWorkerCompletedEventHandler(doneflash64);
+
+
                         MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
                         if (messageBoxResult == MessageBoxResult.Yes)
                         {
-                            Process p = new Process();
-                            ProcessStartInfo info = new ProcessStartInfo();
-                            info.FileName = "cmd.exe";
-                            info.RedirectStandardInput = true;
-                            info.UseShellExecute = false;
-                            info.RedirectStandardOutput = true;
-                            info.RedirectStandardError = true;
-                            p.StartInfo = info;
-                            p.Start();
-                            using (StreamWriter sw = p.StandardInput)
-                            {
-                                if (sw.BaseStream.CanWrite)
-                                {
-                                    sw.WriteLine("@title Flash");
-                                    sw.WriteLine("fastboot flash modem" + path + "/NON-HLOS.bin");
-                                    sw.WriteLine("fastboot flash sbl1" + path + "/sbl1.mbn");
-                                    sw.WriteLine("fastboot flash dbi" + path + "/sdi.mbn");
-                                    sw.WriteLine("fastboot flash aboot" + path + "/emmc_appsboot.mbn");
-                                    sw.WriteLine("fastboot flash rpm" + path + "/rpm.mbn");
-                                    sw.WriteLine("fastboot flash tz" + path + "/tz.mbn");
-                                    sw.WriteLine("fastboot flash LOGO" + path + "/logo.bin");
-                                    sw.WriteLine("fastboot flash oppostanvbk" + path + "/static_nvbk.bin");
-                                    sw.WriteLine("fastboot flash recovery" + path + "/recovery.img");
-                                    sw.WriteLine("fastboot flash system" + path + "/system.img");
-                                    sw.WriteLine("fastboot flash boot" + path + "/boot.img");
-                                    sw.WriteLine("fastboot flash cache" + path + "/cache.img");
-                                    sw.WriteLine("fastboot flash userdata" + path + "/userdata.img");
-                                    sw.WriteLine("fastboot reboot");
-                                }
-
-                            }
-                            p.WaitForExit(90000000);
+                            flash64.RunWorkerAsync();
                         }
                     }
-                }
-
-
-                if (GB64.IsChecked == true)
-                {
-                    MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
-                    if (messageBoxResult == MessageBoxResult.Yes)
+                    if (GB64.IsChecked == true)
                     {
-
+                        MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
                         if (messageBoxResult == MessageBoxResult.Yes)
                         {
-                            Process p = new Process();
-                            ProcessStartInfo info = new ProcessStartInfo();
-                            info.FileName = "cmd.exe";
-                            info.RedirectStandardInput = true;
-                            info.UseShellExecute = false;
-                            info.RedirectStandardOutput = true;
-                            info.RedirectStandardError = true;
-                            p.StartInfo = info;
-                            p.Start();
-                            using (StreamWriter sw = p.StandardInput)
+
+                            if (messageBoxResult == MessageBoxResult.Yes)
                             {
-                                if (sw.BaseStream.CanWrite)
+                                Process p = new Process();
+                                ProcessStartInfo info = new ProcessStartInfo();
+                                info.FileName = "cmd.exe";
+                                info.RedirectStandardInput = true;
+                                info.UseShellExecute = false;
+                                info.RedirectStandardOutput = true;
+                                info.RedirectStandardError = true;
+                                p.StartInfo = info;
+                                p.Start();
+                                using (StreamWriter sw = p.StandardInput)
                                 {
-                                    sw.WriteLine("@title Flash");
-                                    sw.WriteLine("fastboot flash modem" + path + "NON-HLOS.bin");
-                                    sw.WriteLine("fastboot flash sbl1" + path + "sbl1.mbn");
-                                    sw.WriteLine("fastboot flash dbi" + path + "sdi.mbn");
-                                    sw.WriteLine("fastboot flash aboot" + path + "emmc_appsboot.mbn");
-                                    sw.WriteLine("fastboot flash rpm" + path + "rpm.mbn");
-                                    sw.WriteLine("fastboot flash tz" + path + "tz.mbn");
-                                    sw.WriteLine("fastboot flash LOGO" + path + "logo.bin");
-                                    sw.WriteLine("fastboot flash oppostanvbk" + path + "static_nvbk.bin");
-                                    sw.WriteLine("fastboot flash recovery" + path + "recovery.img");
-                                    sw.WriteLine("fastboot flash system" + path + "system.img");
-                                    sw.WriteLine("fastboot flash boot" + path + "boot.img");
-                                    sw.WriteLine("fastboot flash cache" + path + "cache.img");
-                                    sw.WriteLine("fastboot flash userdata" + path + " userdata_64G.img");
-                                    sw.WriteLine("fastboot reboot");
+                                    if (sw.BaseStream.CanWrite)
+                                    {
+                                        sw.WriteLine("@title Flash");
+                                        sw.WriteLine("fastboot flash modem" + path + "NON-HLOS.bin");
+                                        sw.WriteLine("fastboot flash sbl1" + path + "sbl1.mbn");
+                                        sw.WriteLine("fastboot flash dbi" + path + "sdi.mbn");
+                                        sw.WriteLine("fastboot flash aboot" + path + "emmc_appsboot.mbn");
+                                        sw.WriteLine("fastboot flash rpm" + path + "rpm.mbn");
+                                        sw.WriteLine("fastboot flash tz" + path + "tz.mbn");
+                                        sw.WriteLine("fastboot flash LOGO" + path + "logo.bin");
+                                        sw.WriteLine("fastboot flash oppostanvbk" + path + "static_nvbk.bin");
+                                        sw.WriteLine("fastboot flash recovery" + path + "recovery.img");
+                                        sw.WriteLine("fastboot flash system" + path + "system.img");
+                                        sw.WriteLine("fastboot flash boot" + path + "boot.img");
+                                        sw.WriteLine("fastboot flash cache" + path + "cache.img");
+                                        sw.WriteLine("fastboot flash userdata" + path + " userdata_64G.img");
+                                        sw.WriteLine("fastboot reboot");
+                                    }
                                 }
                             }
                         }
@@ -121,8 +95,44 @@ namespace DroidKit_OnePlus_One
             }
         }
 
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+       
+        private void doflash64(object sender, DoWorkEventArgs e)
         {
+            Process p = new Process();
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.FileName = "cmd.exe";
+            info.RedirectStandardInput = true;
+            info.UseShellExecute = false;
+            info.RedirectStandardOutput = true;
+            info.RedirectStandardError = true;
+            p.StartInfo = info;
+            p.Start();
+            using (StreamWriter sw = p.StandardInput)
+            {
+                if (sw.BaseStream.CanWrite)
+                {
+                    sw.WriteLine("@title Flash");
+                    sw.WriteLine("fastboot flash modem" + path + "/NON-HLOS.bin");
+                    sw.WriteLine("fastboot flash sbl1" + path + "/sbl1.mbn");
+                    sw.WriteLine("fastboot flash dbi" + path + "/sdi.mbn");
+                    sw.WriteLine("fastboot flash aboot" + path + "/emmc_appsboot.mbn");
+                    sw.WriteLine("fastboot flash rpm" + path + "/rpm.mbn");
+                    sw.WriteLine("fastboot flash tz" + path + "/tz.mbn");
+                    sw.WriteLine("fastboot flash LOGO" + path + "/logo.bin");
+                    sw.WriteLine("fastboot flash oppostanvbk" + path + "/static_nvbk.bin");
+                    sw.WriteLine("fastboot flash recovery" + path + "/recovery.img");
+                    sw.WriteLine("fastboot flash system" + path + "/system.img");
+                    sw.WriteLine("fastboot flash boot" + path + "/boot.img");
+                    sw.WriteLine("fastboot flash cache" + path + "/cache.img");
+                    sw.WriteLine("fastboot flash userdata" + path + "/userdata.img");
+                    sw.WriteLine("fastboot reboot");
+                }
+            }
+            p.WaitForExit(90000000);
+        }
+        private void doneflash64(object sender, RunWorkerCompletedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

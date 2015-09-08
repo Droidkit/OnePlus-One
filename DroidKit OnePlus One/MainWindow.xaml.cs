@@ -24,7 +24,7 @@ namespace DroidKit_OnePlus_One
 {
     public partial class MainWindow : MetroWindow
     {   
-        string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),@"\DroidKit");
+        string doclocation = System.IO.doclocation.Combine(Environment.GetFolderdoclocation(Environment.SpecialFolder.MyDocuments),@"\DroidKit");
         WebClient webclient;
         Stopwatch sw = new Stopwatch();
         ManagementEventWatcher watcheradd = new ManagementEventWatcher();
@@ -121,10 +121,10 @@ namespace DroidKit_OnePlus_One
             Microsoft.Win32.SaveFileDialog saveFileDialog1 = new Microsoft.Win32.SaveFileDialog();
             saveFileDialog1.Title = "Save Backup";
             saveFileDialog1.OverwritePrompt = true;
-            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveFileDialog1.InitialDirectory = Environment.GetFolderdoclocation(Environment.SpecialFolder.MyDocuments);
             saveFileDialog1.ShowDialog();
             saveFileDialog1.Filter = "Android Backup File | *.ab";
-            if (saveFileDialog1.CheckFileExists == true && saveFileDialog1.CheckPathExists == true)
+            if (saveFileDialog1.CheckFileExists == true && saveFileDialog1.CheckdoclocationExists == true)
             {
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
@@ -185,13 +185,13 @@ namespace DroidKit_OnePlus_One
             backup.WaitForExit(500000);
             ProcessStartInfo copy = new ProcessStartInfo();
             copy.FileName = "adb.exe";
-            copy.Arguments = "adb pull /sdcard/efs" + path;
+            copy.Arguments = "adb pull /sdcard/efs" + doclocation;
             copy.UseShellExecute = false;
             copy.RedirectStandardError = true;
             copy.RedirectStandardOutput = true;
             var process = Process.Start(copy);
             save.Visibility = System.Windows.Visibility.Visible;
-            save.Content = "Saved to " + path;
+            save.Content = "Saved to " + doclocation;
         }
 
         private void efs_restore_Click(object sender, RoutedEventArgs e)
@@ -215,7 +215,7 @@ namespace DroidKit_OnePlus_One
                 if (sw.BaseStream.CanWrite)
                 {
                     sw.WriteLine("@title Root");
-                    sw.WriteLine("adb push "+path+"/root.zip" + "/sdcard/");
+                    sw.WriteLine("adb push "+doclocation+"/root.zip" + "/sdcard/");
                     sw.WriteLine("adb reboot recovery");
                     sw.WriteLine("adb reboot recovery");
                     sw.WriteLine("adb wait-for-device");
@@ -232,22 +232,22 @@ namespace DroidKit_OnePlus_One
             using (webclient = new WebClient())
             {
 
-                if (File.Exists(path+"/OOS.zip"))
+                if (File.Exists(doclocation+"/OOS.zip"))
                 {
                     MessageBox.Show("You have already downloaded the file. You do not need to download it again!");
                     
                 }
-                if (!File.Exists(path+"/OOS.zip"))
+                if (!File.Exists(doclocation+"/OOS.zip"))
                 {
                     sw.Start();
                     Status.Text = "Downloading...";
                     bar.Value = 0;
-                    try { webclient.DownloadFileAsync(new Uri("https://s3.amazonaws.com/oxygenos.oneplus.net/ONE_12_A.01_150813.zip"), path + "/OOS.zip"); }
+                    try { webclient.DownloadFileAsync(new Uri("https://s3.amazonaws.com/oxygenos.oneplus.net/ONE_12_A.01_150813.zip"), doclocation + "/OOS.zip"); }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
-                        if (File.Exists(path+"/OOS.zip"))
-                        { File.Delete(path+"/OOS.zip"); }
+                        if (File.Exists(doclocation+"/OOS.zip"))
+                        { File.Delete(doclocation+"/OOS.zip"); }
                     }
                 }
 
@@ -270,20 +270,20 @@ namespace DroidKit_OnePlus_One
             sw.Reset();
             if (e.Cancelled == true)
             {
-                if (File.Exists(path+"/OOS.zip"))
-                { File.Delete(path+"/OOS.zip"); }
+                if (File.Exists(doclocation+"/OOS.zip"))
+                { File.Delete(doclocation+"/OOS.zip"); }
                 MessageBox.Show("Download has been cancelled.");
                 bar.Value = 0;
                 Status.Text = "Cancelled";
                 labelDownloaded.Text = "0mb / 0mb";
                 labelSpeed.Text = "0mb/s";
             }
-            if (File.Exists(path+"/OOS.zip"))
+            if (File.Exists(doclocation+"/OOS.zip"))
             {
                 MessageBox.Show("Download completed!");
                 Status.Text = "Download Completed";
             }
-                if (e.Cancelled == false && !File.Exists(path+"/OOS.zip"))
+                if (e.Cancelled == false && !File.Exists(doclocation+"/OOS.zip"))
                 {
                     MessageBox.Show("There was an internal error. Please report this on the forum thread!");
                     bar.Value = 0;
@@ -310,7 +310,7 @@ namespace DroidKit_OnePlus_One
                 if (sw.BaseStream.CanWrite)
                 {
                     sw.WriteLine("@title Oxygen OS Flash");
-                    sw.WriteLine("adb push " + path+"/OOS.zip " +"/sdcard");
+                    sw.WriteLine("adb push " + doclocation+"/OOS.zip " +"/sdcard");
                     sw.WriteLine("adb reboot recovery");
                     sw.WriteLine("adb wait-for-device");
                     sw.WriteLine("adb shell twrp install /sdcard/OOS.zip");
@@ -323,22 +323,22 @@ namespace DroidKit_OnePlus_One
             using (webclient = new WebClient())
             {
 
-                if (File.Exists(path+"/stock.zip"))
-                    if (File.Exists(path +"/stock/boot.img"))
+                if (File.Exists(doclocation+"/stock.zip"))
+                    if (File.Exists(doclocation +"/stock/boot.img"))
                     {
                         MessageBox.Show("You have already downloaded the file. You do not need to download it again!");
                     }
-                if (!File.Exists(path+"/stock.zip"))
+                if (!File.Exists(doclocation+"/stock.zip"))
                 {
                     sw.Start();
                     bar.Value = 0;
                     Status.Text = "Downloading...";
-                    try { webclient.DownloadFileAsync(new Uri("http://builds.cyngn.com/factory/bacon/cm-12.0-YNG1TAS2I3-bacon-signed-fastboot.zip"), path + "/stock.zip"); }
+                    try { webclient.DownloadFileAsync(new Uri("http://builds.cyngn.com/factory/bacon/cm-12.0-YNG1TAS2I3-bacon-signed-fastboot.zip"), doclocation + "/stock.zip"); }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
-                        if (File.Exists(path + "/stock.zip"))
-                        { File.Delete(path + "/stock.zip"); }
+                        if (File.Exists(doclocation + "/stock.zip"))
+                        { File.Delete(doclocation + "/stock.zip"); }
                     }
                 }
                 webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progressCOS);
@@ -350,30 +350,30 @@ namespace DroidKit_OnePlus_One
             sw.Reset();
             if (e.Cancelled == true)
             {
-                if (File.Exists(path + "/stock.zip"))
-                { File.Delete(path + "/stock.zip"); }
+                if (File.Exists(doclocation + "/stock.zip"))
+                { File.Delete(doclocation + "/stock.zip"); }
                 MessageBox.Show("Download has been cancelled.");
                 bar.Value = 0;
                 Status.Text = "Cancelled";
                 labelDownloaded.Text = "0mb / 0mb";
                 labelSpeed.Text = "0mb/s";
             }
-            if (File.Exists(path + "/stock.zip"))
+            if (File.Exists(doclocation + "/stock.zip"))
             {
                 MessageBox.Show("Download completed!");
                 Status.Text = "Extracting zip...";
-                string zipPath = path+"/stock.zip";
-                string extractPath = path+"/stock";
-                if (File.Exists(path + "/stock.zip"))
+                string zipdoclocation = doclocation+"/stock.zip";
+                string extractdoclocation = doclocation+"/stock";
+                if (File.Exists(doclocation + "/stock.zip"))
                 {
                     {
                         Status.Text = "Unziping...";
-                        await Task.Run(() =>  System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath));
+                        await Task.Run(() =>  System.IO.Compression.ZipFile.ExtractToDirectory(zipdoclocation, extractdoclocation));
                         MessageBox.Show("Unzip Complete. You can now flash back to stock!");
                     }
                 }
             }
-            if (e.Cancelled == false && !File.Exists(path+"/stock.zip"))
+            if (e.Cancelled == false && !File.Exists(doclocation+"/stock.zip"))
             {
                 MessageBox.Show("There was an internal error. Please report this on the forum thread!");
                 bar.Value = 0;
@@ -404,7 +404,7 @@ namespace DroidKit_OnePlus_One
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
                 process.FileName = "fastboot.exe";
-                process.Arguments = "flash recovery "+path+"/twrp-2.8.7.0.img";
+                process.Arguments = "flash recovery "+doclocation+"/twrp-2.8.7.0.img";
                 process.RedirectStandardError = true;
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
@@ -416,7 +416,7 @@ namespace DroidKit_OnePlus_One
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
                 process.FileName = "fastboot.exe";
-                process.Arguments = "flash recovery "+path+"/philz.img";
+                process.Arguments = "flash recovery "+doclocation+"/philz.img";
                 process.RedirectStandardError = true;
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
@@ -428,7 +428,7 @@ namespace DroidKit_OnePlus_One
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
                 process.FileName = "fastboot.exe";
-                process.Arguments = "flash recovery "+path+"/stockrecovery.img";
+                process.Arguments = "flash recovery "+doclocation+"/stockrecovery.img";
                 process.RedirectStandardError = true;
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
@@ -474,9 +474,9 @@ namespace DroidKit_OnePlus_One
             Status.Text = "Cancelled";
             bar.Value = -0 ;
             webclient.CancelAsync();
-            if (File.Exists(path+"/stock.zip")){File.Delete(path+"/stock.zip");}
-            if (File.Exists(path+"/OOS.zip"))
-            { File.Delete(path+"OOS.zip"); }
+            if (File.Exists(doclocation+"/stock.zip")){File.Delete(doclocation+"/stock.zip");}
+            if (File.Exists(doclocation+"/OOS.zip"))
+            { File.Delete(doclocation+"OOS.zip"); }
             
         }
 
@@ -505,12 +505,12 @@ namespace DroidKit_OnePlus_One
                 p = Process.Start(si);
                 p.WaitForExit(500000);
                 MessageBox.Show("Update found. It will now download!");
-                try { webclient.DownloadFileAsync(new Uri("http://repo.itechy21.com/toolkit.exe"), path+"/update.msi"); }
+                try { webclient.DownloadFileAsync(new Uri("http://repo.itechy21.com/toolkit.exe"), doclocation+"/update.msi"); }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    if (File.Exists(path + "/update.msi"))
-                    { File.Delete(path + "/update.msi"); }
+                    if (File.Exists(doclocation + "/update.msi"))
+                    { File.Delete(doclocation + "/update.msi"); }
                 }
                 webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progress);
                 webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(Complete);
@@ -529,17 +529,17 @@ namespace DroidKit_OnePlus_One
         {
             if (e.Cancelled == true)
             {
-                File.Delete(path + "/update.msi");
+                File.Delete(doclocation + "/update.msi");
                 MessageBox.Show("Download has been cancelled.");
                 CFU.Content = "Check for updates";
             }
 
-            if (File.Exists(path + "/update.msi"))
+            if (File.Exists(doclocation + "/update.msi"))
             {
                 MessageBox.Show("Download completed! The Program will now exit and update...");
-                Process.Start(path + "/update.msi");
+                Process.Start(doclocation + "/update.msi");
             }
-            if (!File.Exists(path + "/update.msi") && e.Cancelled == false)
+            if (!File.Exists(doclocation + "/update.msi") && e.Cancelled == false)
             { MessageBox.Show("There has been an error downloading the update. Please download it from the forum thread..."); }
         }
         private void progress(object sender, DownloadProgressChangedEventArgs e)
