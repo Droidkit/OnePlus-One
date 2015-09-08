@@ -56,7 +56,7 @@ namespace DroidKit_OnePlus_One
             startup.UseShellExecute = false;
             var process = Process.Start(startup);
             process.WaitForExit(50000);
-
+            //add exception for no internet conncetion!!!!
             WebClient client = new WebClient();
             Stream stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt");
             StreamReader reader = new StreamReader(stream);

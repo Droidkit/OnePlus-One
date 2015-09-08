@@ -23,8 +23,8 @@ using System.Management;
 namespace DroidKit_OnePlus_One
 {
     public partial class MainWindow : MetroWindow
-    {   
-        string doclocation = System.IO.doclocation.Combine(Environment.GetFolderdoclocation(Environment.SpecialFolder.MyDocuments),@"\DroidKit");
+    {
+        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"/DroidKit");
         WebClient webclient;
         Stopwatch sw = new Stopwatch();
         ManagementEventWatcher watcheradd = new ManagementEventWatcher();
@@ -121,10 +121,10 @@ namespace DroidKit_OnePlus_One
             Microsoft.Win32.SaveFileDialog saveFileDialog1 = new Microsoft.Win32.SaveFileDialog();
             saveFileDialog1.Title = "Save Backup";
             saveFileDialog1.OverwritePrompt = true;
-            saveFileDialog1.InitialDirectory = Environment.GetFolderdoclocation(Environment.SpecialFolder.MyDocuments);
+            saveFileDialog1.InitialDirectory = doclocation;
             saveFileDialog1.ShowDialog();
             saveFileDialog1.Filter = "Android Backup File | *.ab";
-            if (saveFileDialog1.CheckFileExists == true && saveFileDialog1.CheckdoclocationExists == true)
+            if (saveFileDialog1.CheckFileExists == true && saveFileDialog1.CheckPathExists == true)
             {
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
