@@ -37,11 +37,14 @@ namespace DroidKit_OnePlus_One
         }
         private void MainWindow1_Initialized(object sender, EventArgs e)
         {
+            BackgroundWorker detect = new BackgroundWorker();
+            detect.DoWork += new DoWorkEventHandler(detect_work);
+            detect.RunWorkerAsync();
+
             queryadd = new WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 2");
             watcheradd.EventArrived += new EventArrivedEventHandler(watcher_deviceadded);
             watcheradd.Query = queryadd;
             watcheradd.Start();
-
 
             queryremove = new WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 3");
             watcherremove.EventArrived += new EventArrivedEventHandler(watcher_deviceremoved);
@@ -57,6 +60,57 @@ namespace DroidKit_OnePlus_One
                 watcherremove.Stop();
                 watcherremove.Start();
             }
+            
+            }
+        public void detect_work(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                Process process = new System.Diagnostics.Process();
+                ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.RedirectStandardInput = false;
+                startInfo.CreateNoWindow = true;
+                startInfo.RedirectStandardOutput = true;
+                startInfo.RedirectStandardError = true;
+                startInfo.UseShellExecute = false;
+                startInfo.FileName = "adb.exe";
+                startInfo.Arguments = "shell getprop ro.build.version.release";
+                process = Process.Start(startInfo);
+                process.WaitForExit(500000);
+
+                Process pr = new System.Diagnostics.Process();
+                ProcessStartInfo siy = new System.Diagnostics.ProcessStartInfo();
+                siy.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                siy.RedirectStandardInput = false;
+                siy.CreateNoWindow = true;
+                siy.RedirectStandardOutput = true;
+                siy.RedirectStandardError = true;
+                siy.UseShellExecute = false;
+                siy.FileName = "adb.exe";
+                siy.Arguments = "shell getprop ro.product.name";
+                pr = Process.Start(siy);
+                pr.WaitForExit(500000);
+
+                Process pro = new System.Diagnostics.Process();
+                ProcessStartInfo PSI = new System.Diagnostics.ProcessStartInfo();
+                PSI.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                PSI.RedirectStandardInput = false;
+                PSI.CreateNoWindow = true;
+                PSI.RedirectStandardOutput = true;
+                PSI.RedirectStandardError = true;
+                PSI.UseShellExecute = false;
+                PSI.FileName = "adb.exe";
+                PSI.Arguments = "get-state";
+                pro = Process.Start(PSI);
+                pro.WaitForExit(500000);
+                Mode.Dispatcher.BeginInvoke(new Action(() => Mode.Content = pro.StandardOutput.ReadToEnd()));
+                AV.Dispatcher.BeginInvoke(new Action(() => AV.Content = process.StandardOutput.ReadToEnd()));
+                Device.Dispatcher.BeginInvoke(new Action(() => Device.Content = pr.StandardOutput.ReadToEnd()));
+
+            }
+            catch (Exception ex)
+            { MessageBox.Show(ex.Message); }
         }
 
         private void watcher_deviceremoved(object sender, EventArrivedEventArgs e)
@@ -65,7 +119,7 @@ namespace DroidKit_OnePlus_One
             Dispatcher.BeginInvoke(new Action (()=> Device.Content = ""));
             Dispatcher.BeginInvoke(new Action(() => Mode.Content = "Device Not Connected..."));
         }
-        private void watcher_deviceadded(object sender, EventArrivedEventArgs e)
+        public void watcher_deviceadded(object sender, EventArrivedEventArgs e)
         {
             try
             {
@@ -546,5 +600,7 @@ namespace DroidKit_OnePlus_One
         {
             CFU.Content = e.ProgressPercentage.ToString() + "%";
         }
+
+
     }
 }
