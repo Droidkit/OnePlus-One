@@ -21,7 +21,7 @@ namespace DroidKit_OnePlus_One
 {
     public partial class flash_stock : MetroWindow
     {
-        string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"DroidKit\Stock");
+        string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"DroidKit\stock");
         public flash_stock()
         {
             InitializeComponent();
@@ -29,7 +29,7 @@ namespace DroidKit_OnePlus_One
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(path + "/stock.zip"))
+            if (File.Exists(path + @"\stock.zip"))
             {
                 {
                     if (GB16.IsChecked == false && GB64.IsChecked == false)
