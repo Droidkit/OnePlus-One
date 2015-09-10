@@ -24,7 +24,7 @@ namespace DroidKit_OnePlus_One
 {
     public partial class MainWindow : MetroWindow
     {
-        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"/DroidKit");
+        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"DroidKit");
         WebClient webclient;
         Stopwatch sw = new Stopwatch();
         ManagementEventWatcher watcheradd = new ManagementEventWatcher();
@@ -559,12 +559,12 @@ namespace DroidKit_OnePlus_One
                 p = Process.Start(si);
                 p.WaitForExit(500000);
                 MessageBox.Show("Update found. It will now download!");
-                try { webclient.DownloadFileAsync(new Uri("http://repo.itechy21.com/toolkit.exe"), doclocation+"/update.msi"); }
+                try { webclient.DownloadFileAsync(new Uri("http://repo.itechy21.com/toolkit.exe"), doclocation+"/toolkit.exe"); }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    if (File.Exists(doclocation + "/update.msi"))
-                    { File.Delete(doclocation + "/update.msi"); }
+                    if (File.Exists(doclocation + "/toolkit.exe"))
+                    { File.Delete(doclocation + "/toolkit.exe"); }
                 }
                 webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progress);
                 webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(Complete);
@@ -583,17 +583,17 @@ namespace DroidKit_OnePlus_One
         {
             if (e.Cancelled == true)
             {
-                File.Delete(doclocation + "/update.msi");
+                File.Delete(doclocation + "/toolkit.msi");
                 MessageBox.Show("Download has been cancelled.");
                 CFU.Content = "Check for updates";
             }
 
-            if (File.Exists(doclocation + "/update.msi"))
+            if (File.Exists(doclocation + "/toolkit.exe"))
             {
                 MessageBox.Show("Download completed! The Program will now exit and update...");
-                Process.Start(doclocation + "/update.msi");
+                Process.Start(doclocation + "/toolkit.exe");
             }
-            if (!File.Exists(doclocation + "/update.msi") && e.Cancelled == false)
+            if (!File.Exists(doclocation + "/toolkit.exe") && e.Cancelled == false)
             { MessageBox.Show("There has been an error downloading the update. Please download it from the forum thread..."); }
         }
         private void progress(object sender, DownloadProgressChangedEventArgs e)

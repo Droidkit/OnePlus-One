@@ -31,8 +31,6 @@ namespace DroidKit_OnePlus_One
             InitializeComponent();
            
         }
-
-
         internal void SpashScreen_Shown(object sender, RoutedEventArgs e)
         {
             BackgroundWorker loadapp = new BackgroundWorker();
