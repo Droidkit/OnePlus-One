@@ -54,28 +54,39 @@ namespace DroidKit_OnePlus_One
             startup.UseShellExecute = false;
             var process = Process.Start(startup);
             process.WaitForExit(50000);
-            //add exception for no internet conncetion!!!!
-
-            WebClient client = new WebClient();
-            Stream stream = null;
-            try { stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt"); }
-            catch (Exception ex)
-            { MessageBox.Show(ex.Message); }
-            StreamReader reader = new StreamReader(stream);
-            String content = reader.ReadLine();
-
-            Version a = new Version("0.0.0.1");
-            Version b = new Version(content);
-            if (b > a)
+            try
             {
-                Dispatcher.BeginInvoke(new Action(() => status.Text = "Update available!"));
+                using (var client = new WebClient())
+                {
+                    using (var stream = client.OpenRead("http://www.google.com"))
+                    {
+                        WebClient update = new WebClient();
+                        Stream run;
+                        run = client.OpenRead("http://repo.itechy21.com/updatematerial.txt");
+                        StreamReader reader = new StreamReader(run);
+                        String content = reader.ReadLine();
+                        Version a = new Version("0.0.0.1");
+                        Version b = new Version(content);
+                        if (b > a)
+                        {
+                            Dispatcher.BeginInvoke(new Action(() => status.Text = "Update available!"));
+                            Thread.Sleep(2000);
+                        }
+                        else
+                        {
+                            Dispatcher.BeginInvoke(new Action(() => status.Text = "No Update available"));
+                            Thread.Sleep(2000);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Dispatcher.BeginInvoke(new Action (() => status.Text = "No Internet Connection"));
                 Thread.Sleep(2000);
             }
-            else
-            {
-                Dispatcher.BeginInvoke(new Action(() => status.Text = "No Update available"));
-                Thread.Sleep(2000);
-            }
+            
         }
              private void load_done(object sender, RunWorkerCompletedEventArgs e)
         {

@@ -107,7 +107,6 @@ namespace DroidKit_OnePlus_One
                 Mode.Dispatcher.BeginInvoke(new Action(() => Mode.Content = pro.StandardOutput.ReadToEnd()));
                 AV.Dispatcher.BeginInvoke(new Action(() => AV.Content = process.StandardOutput.ReadToEnd()));
                 Device.Dispatcher.BeginInvoke(new Action(() => Device.Content = pr.StandardOutput.ReadToEnd()));
-                MessageBox.Show(doclocation);
 
             }
             catch (Exception ex)
@@ -540,7 +539,10 @@ namespace DroidKit_OnePlus_One
         {
             CFU.Content = "Checking for updates...";
             WebClient client = new WebClient();
-            Stream stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt");
+            Stream stream = null;
+            try { stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt"); }
+            catch (Exception ex)
+            { MessageBox.Show(ex.Message); }
             StreamReader reader = new StreamReader(stream);
             String content = reader.ReadLine();
 
