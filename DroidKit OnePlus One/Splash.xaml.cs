@@ -41,10 +41,10 @@ namespace DroidKit_OnePlus_One
 
         private void load_splash(object sender, DoWorkEventArgs e)
         {
-            if (Directory.Exists(doclocation))   
+            if (Directory.Exists(doclocation))
             { }
             if (!Directory.Exists(doclocation))
-            { Directory.CreateDirectory(doclocation);            }
+            { Directory.CreateDirectory(doclocation); }
             ProcessStartInfo startup = new ProcessStartInfo();
             startup.CreateNoWindow = true;
             startup.FileName = "adb.exe";
@@ -57,7 +57,8 @@ namespace DroidKit_OnePlus_One
             //add exception for no internet conncetion!!!!
 
             WebClient client = new WebClient();
-            try {Stream stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt");
+            Stream stream = null;
+            try { stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt"); }
             catch (Exception ex)
             { MessageBox.Show(ex.Message); }
             StreamReader reader = new StreamReader(stream);
@@ -75,6 +76,7 @@ namespace DroidKit_OnePlus_One
                 Dispatcher.BeginInvoke(new Action(() => status.Text = "No Update available"));
                 Thread.Sleep(2000);
             }
+        }
              private void load_done(object sender, RunWorkerCompletedEventArgs e)
         {
                MainWindow m = new MainWindow();
