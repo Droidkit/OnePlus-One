@@ -24,7 +24,7 @@ namespace DroidKit_OnePlus_One
 {
     public partial class MainWindow : MetroWindow
     {
-        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"DroidKit");
+        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), @"\DroidKit");
         WebClient webclient;
         Stopwatch sw = new Stopwatch();
         ManagementEventWatcher watcheradd = new ManagementEventWatcher();

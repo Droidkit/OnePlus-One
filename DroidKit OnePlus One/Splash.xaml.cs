@@ -25,7 +25,7 @@ namespace DroidKit_OnePlus_One
     /// </summary>
     public partial class Splash : MetroWindow
     {
-        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"/DroidKit");
+        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),@"\DroidKit", @"\test.txt");
         public Splash()
         {
             InitializeComponent();
