@@ -41,9 +41,8 @@ namespace DroidKit_OnePlus_One
 
         private void load_splash(object sender, DoWorkEventArgs e)
         {
-            if (Directory.Exists(doclocation))
-                
-            {MessageBox.Show("Created path at"+doclocation); }
+            if (Directory.Exists(doclocation))   
+            { }
             if (!Directory.Exists(doclocation))
             { Directory.CreateDirectory(doclocation);            }
             ProcessStartInfo startup = new ProcessStartInfo();
@@ -78,8 +77,7 @@ namespace DroidKit_OnePlus_One
         {
                MainWindow m = new MainWindow();
                status.Text = "Finished!";
-               MessageBox.Show("Created path at" + doclocation);
-               Thread.Sleep(1000);
+               Thread.Sleep(1500);
                m.Show();
                this.Close();
         }

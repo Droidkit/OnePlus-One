@@ -24,7 +24,7 @@ namespace DroidKit_OnePlus_One
 {
     public partial class MainWindow : MetroWindow
     {
-        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DroidKit");
+        string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),"DroidKit");
         WebClient webclient;
         Stopwatch sw = new Stopwatch();
         ManagementEventWatcher watcheradd = new ManagementEventWatcher();
@@ -107,6 +107,7 @@ namespace DroidKit_OnePlus_One
                 Mode.Dispatcher.BeginInvoke(new Action(() => Mode.Content = pro.StandardOutput.ReadToEnd()));
                 AV.Dispatcher.BeginInvoke(new Action(() => AV.Content = process.StandardOutput.ReadToEnd()));
                 Device.Dispatcher.BeginInvoke(new Action(() => Device.Content = pr.StandardOutput.ReadToEnd()));
+                MessageBox.Show(doclocation);
 
             }
             catch (Exception ex)
@@ -522,13 +523,14 @@ namespace DroidKit_OnePlus_One
         }
 
         private void stop_Click(object sender, RoutedEventArgs e)
-        {            
+        {   
+            webclient.CancelAsync();         
             labelSpeed.Text = "0 mb/s";
             labelDownloaded.Text = "0 mb";
             Status.Text = "Cancelled";
             bar.Value = -0 ;
-            webclient.CancelAsync();
-            if (File.Exists(doclocation+"/stock.zip")){File.Delete(doclocation+"/stock.zip");}
+            if (File.Exists(doclocation+"/stock.zip"))
+            {File.Delete(doclocation+"/stock.zip");}
             if (File.Exists(doclocation+"/OOS.zip"))
             { File.Delete(doclocation+"OOS.zip"); }
             
