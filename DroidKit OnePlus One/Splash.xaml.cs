@@ -55,8 +55,11 @@ namespace DroidKit_OnePlus_One
             var process = Process.Start(startup);
             process.WaitForExit(50000);
             //add exception for no internet conncetion!!!!
+
             WebClient client = new WebClient();
-            Stream stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt");
+            try {Stream stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt");
+            catch (Exception ex)
+            { MessageBox.Show(ex.Message); }
             StreamReader reader = new StreamReader(stream);
             String content = reader.ReadLine();
 
@@ -71,9 +74,8 @@ namespace DroidKit_OnePlus_One
             {
                 Dispatcher.BeginInvoke(new Action(() => status.Text = "No Update available"));
                 Thread.Sleep(2000);
-            };
-        }
-        private void load_done(object sender, RunWorkerCompletedEventArgs e)
+            }
+             private void load_done(object sender, RunWorkerCompletedEventArgs e)
         {
                MainWindow m = new MainWindow();
                status.Text = "Finished!";
