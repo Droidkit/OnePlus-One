@@ -159,6 +159,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Stock.img" />
     <Resource Include="twrp-2.8.7.0.img">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -169,6 +170,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="packages.config" />
+    <None Include="philz_touch.img" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
