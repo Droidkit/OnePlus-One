@@ -11,7 +11,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 <GradientStop Color="White" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBlock x:Name="status" Text="Loading Application - Please Wait..." HorizontalAlignment="Center" Margin="120,164,110,0" VerticalAlignment="Center" FontSize="14" Width="270" Height="36" TextAlignment="Center"/>
+        <TextBlock x:Name="status" Text="Loading Application - Please Wait..." HorizontalAlignment="Center" Margin="10,145,10,0" VerticalAlignment="Center" FontSize="14" Width="480" Height="55" TextAlignment="Center"/>
         <Image HorizontalAlignment="Center" Height="120" Margin="0,0,0,40" VerticalAlignment="Center" Width="120" Source="resources/Droidkiticon.ico"/>
     </Grid>
 </Controls:MetroWindow>

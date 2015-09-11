@@ -286,7 +286,7 @@ namespace DroidKit_OnePlus_One
             }
             else
             {
-                MessageBox.Show("I cant find the root.zip file." + "/n" + "Please find it for me.");
+                MessageBox.Show("I cant find the root.zip file." + "\n" + "Please find it for me.");
                 OpenFileDialog findrootzip = new OpenFileDialog();
                 findrootzip.Title = "Restore Backup";
                 findrootzip.Filter = "Android Backup File | *.ab";
@@ -353,7 +353,7 @@ namespace DroidKit_OnePlus_One
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + "/n" + "In other words something went wrong... (Check your Internet is working!)");
+                        MessageBox.Show(ex.Message + "\n" + "In other words something went wrong... (Check your Internet is working!)");
                     }
                     webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progressOOS);
                     webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(CompleteOOS);
@@ -457,7 +457,7 @@ namespace DroidKit_OnePlus_One
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + "/n" + "In other words something went wrong... (Check your Internet is working!)");
+                        MessageBox.Show(ex.Message + "\n" + "In other words something went wrong... (Check your Internet is working!)");
                     }
                     webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progressCOS);
                     webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(CompleteCOS);
