@@ -536,7 +536,7 @@ namespace DroidKit_OnePlus_One
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
                 process.FileName = "fastboot.exe";
-                process.Arguments = "flash recovery "+doclocation+"/philz.img";
+                process.Arguments = "flash recovery "+doclocation+"/philz_touch.img";
                 process.RedirectStandardError = true;
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
@@ -548,7 +548,7 @@ namespace DroidKit_OnePlus_One
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
                 process.FileName = "fastboot.exe";
-                process.Arguments = "flash recovery "+doclocation+"/stockrecovery.img";
+                process.Arguments = "flash recovery "+doclocation+"/Stock.img";
                 process.RedirectStandardError = true;
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
