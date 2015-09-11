@@ -71,11 +71,11 @@
                     <TextBox x:Name="loging" SpellCheck.IsEnabled="True" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="220" TextAlignment="Center" Background="#72000000" Foreground="White" UndoLimit="0" Text="Nothing to see here yet..." BorderThickness="7"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="About">
+            <TabItem Header="About" Initialized="TabItem_Initialized">
                 <Grid>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="This ToolKit was originally made by iTechy(21). &#10; Material Design theme by BuchersBoyz &#10;(and available on git-hub).&#10;If you paid for this let me know as this is free!" TextAlignment="Center" Width="300" Margin="0,-47,0,0" />
                     <Button x:Name="CFU" Content="Check for updates" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="150" Click="CFU_Click" TextBlock.TextAlignment="Center"/>
-                    <Label x:Name="CurrentV" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,160,0,0"/>
+                    <Label x:Name="CurrentV" Content="place" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,160,0,0"/>
                     <Label x:Name="NewV" Content="No Connection..." HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,190,0,0"/>
                 </Grid>
             </TabItem>

@@ -688,6 +688,14 @@ namespace DroidKit_OnePlus_One
             CFU.Content = e.ProgressPercentage.ToString() + "%";
         }
 
+        private void TabItem_Initialized(object sender, EventArgs e)
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fvi.FileVersion;
+            CurrentV.Content = version;
+        }
+
 
     }
 }
