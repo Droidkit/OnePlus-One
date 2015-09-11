@@ -21,7 +21,8 @@ namespace DroidKit_OnePlus_One
 {
     public partial class flash_stock : MetroWindow
     {
-        string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"DroidKit\stock");
+        string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"DroidKit\stock\");
+        string image64gb = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"Droidkit\");
         public flash_stock()
         {
             InitializeComponent();
@@ -84,7 +85,7 @@ namespace DroidKit_OnePlus_One
                                         sw.WriteLine("fastboot flash system" + path + "system.img");
                                         sw.WriteLine("fastboot flash boot" + path + "boot.img");
                                         sw.WriteLine("fastboot flash cache" + path + "cache.img");
-                                        sw.WriteLine("fastboot flash userdata" + path + " userdata_64G.img");
+                                        sw.WriteLine("fastboot flash userdata" + image64gb + " userdata_64G.img");
                                         sw.WriteLine("fastboot reboot");
                                     }
                                 }

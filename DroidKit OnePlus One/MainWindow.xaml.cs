@@ -615,8 +615,10 @@ namespace DroidKit_OnePlus_One
                         stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt");
                         StreamReader reader = new StreamReader(stream);
                         String content = reader.ReadLine();
-
-                        Version a = new Version("0.0.0.1");
+                        System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                        FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+                        string version = fvi.FileVersion;
+                        Version a = new Version(version);
                         Version b = new Version(content);
                         if (b > a)
                         {

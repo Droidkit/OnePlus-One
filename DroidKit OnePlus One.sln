@@ -18,10 +18,15 @@ Global
 		{325DC736-70A1-422D-A4B9-441E228C5062}.Debug|Default.ActiveCfg = Debug|Any CPU
 		{325DC736-70A1-422D-A4B9-441E228C5062}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{325DC736-70A1-422D-A4B9-441E228C5062}.Release|Any CPU.Build.0 = Release|Any CPU
-		{325DC736-70A1-422D-A4B9-441E228C5062}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{325DC736-70A1-422D-A4B9-441E228C5062}.Release|Default.ActiveCfg = Debug|Any CPU
+		{325DC736-70A1-422D-A4B9-441E228C5062}.Release|Default.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Default = Debug|Default
+		Release|Any CPU = Release|Any CPU
+		Release|Default = Release|Default
 	EndGlobalSection
 EndGlobal
