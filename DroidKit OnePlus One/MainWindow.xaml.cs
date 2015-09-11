@@ -694,6 +694,23 @@ namespace DroidKit_OnePlus_One
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             string version = fvi.FileVersion;
             CurrentV.Content = version;
+            try
+            {
+                using (var internetcheck = new WebClient())
+                {
+                    using (var check = internetcheck.OpenRead("http://www.google.com"))
+                    {
+                        WebClient client = new WebClient();
+                        Stream stream;
+                        stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt");
+                        StreamReader reader = new StreamReader(stream);
+                        String content = reader.ReadLine();
+                        NewV.Content = content;
+                    }
+                }
+            }
+            catch
+            { NewV.Content = "Not Connected"; }
         }
 
 
