@@ -41,7 +41,7 @@
                     <Expander x:Name="Download_Progress" Header="Download Progress" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Width="375" Height="100" IsExpanded="True">
                         <Grid>
                             <ProgressBar x:Name="bar" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="10" Margin="0,-30,0,0" Background="#FF2196F3" Value="0" BorderBrush="{x:Null}" />
-                            <TextBlock x:Name="labelSpeed" Text="0 kb/s" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,-30,0,0"/>
+                            <TextBlock x:Name="labelSpeed" Text="0 KB/s" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,-30,0,0"/>
                             <TextBlock x:Name="labelDownloaded" Text="0 MB" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-30,-225,0" />
                             <TextBlock x:Name="Status" Text="Status" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="-250,20,0,0" Foreground="Black" Width="200" TextBlock.TextAlignment="Center"/>
                             <Button x:Name="stop" Content="Cancel Download" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="stop_Click"/>
@@ -58,11 +58,11 @@
                         <ListBoxItem x:Name="Philz" Content="Philz" ToolTip="Installs Philz Touch Recovery"/>
                         <ListBoxItem x:Name="Stockre" Content="Stock" ToolTip="Installs the Stock (Cyanogen) Recovery"/>
                     </ComboBox>
-                    <Button x:Name="ul_bl" Content="Unlock Bootloader" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,45" Background="#FFF32121" Click="ul_bl_Click" />
+                    <Button x:Name="ul_bl" Content="Unlock Boot-loader" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,45" Background="#FFF32121" Click="ul_bl_Click" />
                     <Button x:Name="rb_fb" Content="Reboot into fastboot" HorizontalAlignment="Center" Margin="200,-50,0,0" VerticalAlignment="Center" Width="150"/>
                     <Button x:Name="rb_ad" Content="Reboot Into Android" HorizontalAlignment="Center" Margin="200,30,0,0" VerticalAlignment="Center" Width="150"/>
                     <Label Content="Reboot into..." HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,-125,0,0" />
-                    <TextBlock Text="TWRP Recovery is Recomended for use with this ToolKit!" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,-210" />
+                    <TextBlock Text="TWRP Recovery is Recommended for use with this ToolKit!" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,-210" />
                     <TextBlock x:Name="warning" Text="Select an option!" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="-200,0,0,-80" Foreground="Red" Visibility="Hidden" />
                 </Grid>
             </TabItem>
@@ -73,7 +73,7 @@
             </TabItem>
             <TabItem Header="About">
                 <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="This ToolKit was origionaly made by iTechy(21). &#10; Material Design theme by BuchersBoyz &#10;(and avalible on github).&#10;If you paid for this let me know as this is free!" TextAlignment="Center" Width="300" Margin="0,-47,0,0" />
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="This ToolKit was originally made by iTechy(21). &#10; Material Design theme by BuchersBoyz &#10;(and available on git-hub).&#10;If you paid for this let me know as this is free!" TextAlignment="Center" Width="300" Margin="0,-47,0,0" />
                     <Button x:Name="CFU" Content="Check for updates" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="150" Click="CFU_Click" TextBlock.TextAlignment="Center"/>
                     <Label x:Name="CurrentV" Content="Version: 0.0.0.1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,160,0,0"/>
                     <Label x:Name="NewV" Content="No Connection..." HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,190,0,0"/>

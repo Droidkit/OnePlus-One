@@ -82,8 +82,7 @@ namespace DroidKit_OnePlus_One
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                Dispatcher.BeginInvoke(new Action (() => status.Text = "No Internet Connection"));
+                Dispatcher.BeginInvoke(new Action (() => status.Text = "No Internet Connection." + ex.Message));
                 Thread.Sleep(2000);
             }
             

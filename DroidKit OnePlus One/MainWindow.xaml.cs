@@ -353,7 +353,7 @@ namespace DroidKit_OnePlus_One
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + "/n" + "In other words somthing went wrong... (Check your internet is working!)");
+                        MessageBox.Show(ex.Message + "/n" + "In other words something went wrong... (Check your Internet is working!)");
                     }
                     webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progressOOS);
                     webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(CompleteOOS);
@@ -363,7 +363,7 @@ namespace DroidKit_OnePlus_One
 
         private void progressOOS(object sender, DownloadProgressChangedEventArgs e)
         {
-            labelSpeed.Text = string.Format("{0} mb/s", (e.BytesReceived / 1000000d / sw.Elapsed.TotalSeconds).ToString("0.00"));
+            labelSpeed.Text = string.Format("{0} MB/s", (e.BytesReceived / 1000000d / sw.Elapsed.TotalSeconds).ToString("0.00"));
             bar.Value = e.ProgressPercentage;
             labelDownloaded.Text = string.Format("{0} MB's / {1} MB's",
                 (e.BytesReceived / 1024d / 1024d).ToString("0.00"),
@@ -378,7 +378,7 @@ namespace DroidKit_OnePlus_One
                 webclient.CancelAsync();
                 if (File.Exists(doclocation+"/OOS.zip"))
                 { File.Delete(doclocation+"/OOS.zip"); }
-                MessageBox.Show("Download has been cancelled.");
+                MessageBox.Show("Download has been canceled.");
                 bar.Value = 0;
                 Status.Text = "Cancelled";
                 labelDownloaded.Text = "0mb / 0mb";
@@ -393,7 +393,7 @@ namespace DroidKit_OnePlus_One
                 {
                     MessageBox.Show("There was an internal error. Please report this on the forum thread!");
                     bar.Value = 0;
-                    Status.Text = "Internal Erorr";
+                    Status.Text = "Internal Error";
                     labelDownloaded.Text = "0mb / 0mb";
                     labelSpeed.Text = "0mb/s";
                 }
@@ -457,7 +457,7 @@ namespace DroidKit_OnePlus_One
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + "/n" + "In other words somthing went wrong... (Check your internet is working!)");
+                        MessageBox.Show(ex.Message + "/n" + "In other words something went wrong... (Check your Internet is working!)");
                     }
                     webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progressCOS);
                     webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(CompleteCOS);
@@ -474,7 +474,7 @@ namespace DroidKit_OnePlus_One
                 { File.Delete(doclocation + "/stock.zip"); }
                 MessageBox.Show("Download has been cancelled.");
                 bar.Value = 0;
-                Status.Text = "Cancelled";
+                Status.Text = "Canceled";
                 labelDownloaded.Text = "0mb / 0mb";
                 labelSpeed.Text = "0mb/s";
             }
@@ -487,7 +487,7 @@ namespace DroidKit_OnePlus_One
                 if (File.Exists(doclocation + "/stock.zip"))
                 {
                     {
-                        Status.Text = "Unziping...";
+                        Status.Text = "Unzipping...";
                         await Task.Run(() =>  System.IO.Compression.ZipFile.ExtractToDirectory(zipdoclocation, extractdoclocation));
                         MessageBox.Show("Unzip Complete. You can now flash back to stock!");
                     }
@@ -497,14 +497,14 @@ namespace DroidKit_OnePlus_One
             {
                 MessageBox.Show("There was an internal error. Please report this on the forum thread!");
                 bar.Value = 0;
-                Status.Text = "Cancelled";
+                Status.Text = "Canceled";
                 labelDownloaded.Text = "0mb / 0mb";
                 labelSpeed.Text = "0mb/s";
             }
         }
         private void progressCOS(object sender, DownloadProgressChangedEventArgs e)
         {
-            labelSpeed.Text = string.Format("{0} mb/s", (e.BytesReceived / 1000000d / sw.Elapsed.TotalSeconds).ToString("0.00"));
+            labelSpeed.Text = string.Format("{0} MB/s", (e.BytesReceived / 1000000d / sw.Elapsed.TotalSeconds).ToString("0.00"));
             bar.Value = e.ProgressPercentage;
             labelDownloaded.Text = string.Format("{0} MB's / {1} MB's",
                 (e.BytesReceived / 1024d / 1024d).ToString("0.00"),
@@ -590,8 +590,8 @@ namespace DroidKit_OnePlus_One
         private void stop_Click(object sender, RoutedEventArgs e)
         {   
             webclient.CancelAsync();         
-            labelSpeed.Text = "0 mb/s";
-            labelDownloaded.Text = "0 mb";
+            labelSpeed.Text = "0 MB/s";
+            labelDownloaded.Text = "0 MB";
             Status.Text = "Cancelled";
             bar.Value = -0 ;
             if (File.Exists(doclocation+"/stock.zip"))
@@ -603,52 +603,65 @@ namespace DroidKit_OnePlus_One
 
         private void CFU_Click(object sender, RoutedEventArgs e)
         {
-            CFU.Content = "Checking for updates...";
-            WebClient client = new WebClient();
-            Stream stream = null;
-            try { stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt"); }
-            catch (Exception ex)
-            { MessageBox.Show(ex.Message); }
-            StreamReader reader = new StreamReader(stream);
-            String content = reader.ReadLine();
-
-            Version a = new Version("0.0.0.1");
-            Version b = new Version(content);
-            if (b > a)
+            try
             {
-                NewV.Content = "New version available";
-                Process p = new System.Diagnostics.Process();
-                ProcessStartInfo si = new System.Diagnostics.ProcessStartInfo();
-                si.RedirectStandardInput = true;
-                si.RedirectStandardError = true;
-                si.RedirectStandardOutput = true;
-                si.CreateNoWindow = true;
-                si.UseShellExecute = false;
-                si.FileName = "adb.exe";
-                si.Arguments = "kill-server";
-                p = Process.Start(si);
-                p.WaitForExit(500000);
-                MessageBox.Show("Update found. It will now download!");
-                try { webclient.DownloadFileAsync(new Uri("http://repo.itechy21.com/toolkit.exe"), doclocation+"/toolkit.exe"); }
-                catch (Exception ex)
+                using (var internetcheck = new WebClient())
                 {
-                    MessageBox.Show(ex.Message);
-                    if (File.Exists(doclocation + "/toolkit.exe"))
-                    { File.Delete(doclocation + "/toolkit.exe"); }
+                    using (var check = internetcheck.OpenRead("http://www.google.com"))
+                    {
+                        CFU.Content = "Checking for updates...";
+                        WebClient client = new WebClient();
+                        Stream stream;
+                        stream = client.OpenRead("http://repo.itechy21.com/updatematerial.txt");
+                        StreamReader reader = new StreamReader(stream);
+                        String content = reader.ReadLine();
+
+                        Version a = new Version("0.0.0.1");
+                        Version b = new Version(content);
+                        if (b > a)
+                        {
+                            NewV.Content = "New version available";
+                            Process p = new System.Diagnostics.Process();
+                            ProcessStartInfo si = new System.Diagnostics.ProcessStartInfo();
+                            si.RedirectStandardInput = true;
+                            si.RedirectStandardError = true;
+                            si.RedirectStandardOutput = true;
+                            si.CreateNoWindow = true;
+                            si.UseShellExecute = false;
+                            si.FileName = "adb.exe";
+                            si.Arguments = "kill-server";
+                            p = Process.Start(si);
+                            p.WaitForExit(500000);
+                            MessageBox.Show("Update found. It will now download!");
+                            try { webclient.DownloadFileAsync(new Uri("http://repo.itechy21.com/toolkit.exe"), doclocation + "/toolkit.exe"); }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                if (File.Exists(doclocation + "/toolkit.exe"))
+                                { File.Delete(doclocation + "/toolkit.exe"); }
+                            }
+
+                            webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progress);
+                            webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(Complete);
+                        }
+                        if (a == b)
+                        {
+                            MessageBox.Show("No updates available...");
+                            CFU.Content = "Check for updates";
+                        }
+                        if (a > b)
+                        {
+                            MessageBox.Show("Your version number is different. Are you running a development build?");
+                        }
+                    }
                 }
-                webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progress);
-                webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(Complete);
             }
-            if (a == b)
+            catch (Exception ex)
             {
-                MessageBox.Show("No updates avalible...");
-                CFU.Content = "Check for updates";
-            }
-            if (a > b)
-            {
-                MessageBox.Show("Your version number is different. Are you running a development build?");
+                MessageBox.Show(ex.Message);
             }
         }
+
         private void Complete(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Cancelled == true)
