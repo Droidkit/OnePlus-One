@@ -24,7 +24,7 @@ using Microsoft.Win32;
 namespace DroidKit_OnePlus_One
 {
     public partial class MainWindow : MetroWindow
-    {
+    {   
         string doclocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),"DroidKit");
         WebClient webclient;
         Stopwatch sw = new Stopwatch();
@@ -37,7 +37,7 @@ namespace DroidKit_OnePlus_One
             InitializeComponent();
         }
         private void MainWindow1_Initialized(object sender, EventArgs e)
-        {
+        {   
             BackgroundWorker detect = new BackgroundWorker();
             detect.DoWork += new DoWorkEventHandler(detect_work);
             detect.RunWorkerAsync();
@@ -635,12 +635,12 @@ namespace DroidKit_OnePlus_One
                             p = Process.Start(si);
                             p.WaitForExit(500000);
                             MessageBox.Show("Update found. It will now download!");
-                            try { webclient.DownloadFileAsync(new Uri("http://repo.itechy21.com/toolkit.exe"), doclocation + "/toolkit.exe"); }
+                            try { webclient.DownloadFileAsync(new Uri("http://repo.itechy21.com/Toolkit.exe"), doclocation + "/Toolkit.exe"); }
                             catch (Exception ex)
                             {
                                 MessageBox.Show(ex.Message);
-                                if (File.Exists(doclocation + "/toolkit.exe"))
-                                { File.Delete(doclocation + "/toolkit.exe"); }
+                                if (File.Exists(doclocation + "/Toolkit.exe"))
+                                { File.Delete(doclocation + "/Toolkit.exe"); }
                             }
 
                             webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progress);
