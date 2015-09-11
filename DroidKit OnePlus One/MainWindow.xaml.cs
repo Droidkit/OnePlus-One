@@ -378,7 +378,7 @@ namespace DroidKit_OnePlus_One
                 webclient.CancelAsync();
                 if (File.Exists(doclocation+"/OOS.zip"))
                 { File.Delete(doclocation+"/OOS.zip"); }
-                MessageBox.Show("Download has been canceled.");
+                MessageBox.Show("Download has been cancelled.");
                 bar.Value = 0;
                 Status.Text = "Cancelled";
                 labelDownloaded.Text = "0mb / 0mb";
@@ -474,7 +474,7 @@ namespace DroidKit_OnePlus_One
                 { File.Delete(doclocation + "/stock.zip"); }
                 MessageBox.Show("Download has been cancelled.");
                 bar.Value = 0;
-                Status.Text = "Canceled";
+                Status.Text = "Cancelled";
                 labelDownloaded.Text = "0mb / 0mb";
                 labelSpeed.Text = "0mb/s";
             }
@@ -497,7 +497,7 @@ namespace DroidKit_OnePlus_One
             {
                 MessageBox.Show("There was an internal error. Please report this on the forum thread!");
                 bar.Value = 0;
-                Status.Text = "Canceled";
+                Status.Text = "Cancelled";
                 labelDownloaded.Text = "0mb / 0mb";
                 labelSpeed.Text = "0mb/s";
             }
