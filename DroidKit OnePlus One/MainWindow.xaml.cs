@@ -19,6 +19,7 @@ using System.Threading;
 using System.Net;
 using System.ComponentModel;
 using System.Management;
+using Microsoft.Win32;
 
 namespace DroidKit_OnePlus_One
 {
@@ -264,12 +265,14 @@ namespace DroidKit_OnePlus_One
             info.RedirectStandardError = true;
             p.StartInfo = info;
             p.Start();
+            if (File.Exists (doclocation + "\root.zip"))
+            {
             using (StreamWriter sw = p.StandardInput)
             {
                 if (sw.BaseStream.CanWrite)
                 {
                     sw.WriteLine("@title Root");
-                    sw.WriteLine("adb push "+doclocation+"/root.zip" + "/sdcard/");
+                    sw.WriteLine("adb push "+doclocation+"\root.zip" + "/sdcard/");
                     sw.WriteLine("adb reboot recovery");
                     sw.WriteLine("adb reboot recovery");
                     sw.WriteLine("adb wait-for-device");
@@ -278,35 +281,56 @@ namespace DroidKit_OnePlus_One
                 }
             }
             p.WaitForExit(500000);
-            MessageBox.Show("Your device should now have SuperSu Installed.");
+            MessageBox.Show("Your device should now have SuperSu Installed.");}
+            else
+            { MessageBox.Show("I cant find the root.zip file." +"/n"+ "Please find it for me.");
+            OpenFileDialog findrootzip = new OpenFileDialog();
+            findrootzip.Title = "Restore Backup";
+            findrootzip.Filter = "Android Backup File | *.ab";
+            findrootzip.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            findrootzip.ShowDialog();
+            if (findrootzip.CheckFileExists == true && findrootzip.CheckPathExists == true)
+            { }
+
+              }
         }
 
         private void OOS_Dload_Click(object sender, RoutedEventArgs e)
         {
             using (webclient = new WebClient())
             {
-
-                if (File.Exists(doclocation+"/OOS.zip"))
+                if (File.Exists(doclocation + "/OOS.zip"))
                 {
                     MessageBox.Show("You have already downloaded the file. You do not need to download it again!");
-                    
                 }
-                if (!File.Exists(doclocation+"/OOS.zip"))
+                if (!File.Exists(doclocation + "/OOS.zip"))
                 {
-                    sw.Start();
-                    Status.Text = "Downloading...";
-                    bar.Value = 0;
-                    try { webclient.DownloadFileAsync(new Uri("https://s3.amazonaws.com/oxygenos.oneplus.net/ONE_12_A.01_150813.zip"), doclocation + "/OOS.zip"); }
+                    try
+                    {
+                        using (var client = new WebClient())
+                        {
+                            using (var stream = client.OpenRead("http://www.google.com"))
+                            {
+                                sw.Start();
+                                Status.Text = "Downloading...";
+                                bar.Value = 0;
+                                try { webclient.DownloadFileAsync(new Uri("https://s3.amazonaws.com/oxygenos.oneplus.net/ONE_12_A.01_150813.zip"), doclocation + "/OOS.zip"); }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    if (File.Exists(doclocation + "/OOS.zip"))
+                                    { File.Delete(doclocation + "/OOS.zip"); }
+                                }
+                            }
+                        }
+                    }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
-                        if (File.Exists(doclocation+"/OOS.zip"))
-                        { File.Delete(doclocation+"/OOS.zip"); }
+                        MessageBox.Show(ex.Message + "/n" + "In other words somthing went wrong... (Check your internet is working!)");
                     }
+                    webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progressOOS);
+                    webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(CompleteOOS);
                 }
-
-                webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progressOOS);
-                webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(CompleteOOS);
             }
         }
 
@@ -324,6 +348,7 @@ namespace DroidKit_OnePlus_One
             sw.Reset();
             if (e.Cancelled == true)
             {
+                webclient.CancelAsync();
                 if (File.Exists(doclocation+"/OOS.zip"))
                 { File.Delete(doclocation+"/OOS.zip"); }
                 MessageBox.Show("Download has been cancelled.");
@@ -377,26 +402,40 @@ namespace DroidKit_OnePlus_One
             using (webclient = new WebClient())
             {
 
-                if (File.Exists(doclocation+"/stock.zip"))
-                    if (File.Exists(doclocation +"/stock/boot.img"))
+                if (File.Exists(doclocation + "/stock.zip"))
+                    if (File.Exists(doclocation + "/stock/boot.img"))
                     {
                         MessageBox.Show("You have already downloaded the file. You do not need to download it again!");
                     }
-                if (!File.Exists(doclocation+"/stock.zip"))
+                if (!File.Exists(doclocation + "/stock.zip"))
                 {
-                    sw.Start();
-                    bar.Value = 0;
-                    Status.Text = "Downloading...";
-                    try { webclient.DownloadFileAsync(new Uri("http://builds.cyngn.com/factory/bacon/cm-12.0-YNG1TAS2I3-bacon-signed-fastboot.zip"), doclocation + "/stock.zip"); }
+                    try
+                    {
+                        using (var client = new WebClient())
+                        {
+                            using (var stream = client.OpenRead("http://www.google.com"))
+                            {
+                                sw.Start();
+                                bar.Value = 0;
+                                Status.Text = "Downloading...";
+                                try { webclient.DownloadFileAsync(new Uri("http://builds.cyngn.com/factory/bacon/cm-12.0-YNG1TAS2I3-bacon-signed-fastboot.zip"), doclocation + "/stock.zip"); }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    if (File.Exists(doclocation + "/stock.zip"))
+                                    { File.Delete(doclocation + "/stock.zip"); }
+                                }
+                            }
+                        }
+                    }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
-                        if (File.Exists(doclocation + "/stock.zip"))
-                        { File.Delete(doclocation + "/stock.zip"); }
+                        MessageBox.Show(ex.Message + "/n" + "In other words somthing went wrong... (Check your internet is working!)");
                     }
+                    webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progressCOS);
+                    webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(CompleteCOS);
                 }
-                webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progressCOS);
-                webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(CompleteCOS);
+
             }
         }
         private async void CompleteCOS(object sender, AsyncCompletedEventArgs e)
