@@ -256,43 +256,70 @@ namespace DroidKit_OnePlus_One
 
         private void root_Click(object sender, RoutedEventArgs e)
         {
-            Process p = new Process();
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.FileName = "cmd.exe";
-            info.RedirectStandardInput = true;
-            info.UseShellExecute = false;
-            info.RedirectStandardOutput = true;
-            info.RedirectStandardError = true;
-            p.StartInfo = info;
-            p.Start();
-            if (File.Exists (doclocation + "\root.zip"))
+            if (File.Exists(doclocation + "\root.zip"))
             {
-            using (StreamWriter sw = p.StandardInput)
-            {
-                if (sw.BaseStream.CanWrite)
+                Process p = new Process();
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.FileName = "cmd.exe";
+                info.RedirectStandardInput = true;
+                info.UseShellExecute = false;
+                info.RedirectStandardOutput = true;
+                info.RedirectStandardError = true;
+                p.StartInfo = info;
+                p.Start();
+
+                using (StreamWriter sw = p.StandardInput)
                 {
-                    sw.WriteLine("@title Root");
-                    sw.WriteLine("adb push "+doclocation+"\root.zip" + "/sdcard/");
-                    sw.WriteLine("adb reboot recovery");
-                    sw.WriteLine("adb reboot recovery");
-                    sw.WriteLine("adb wait-for-device");
-                    sw.WriteLine("adb shell twrp install /sdcard/root.zip");
-                    sw.WriteLine("adb reboot");
+                    if (sw.BaseStream.CanWrite)
+                    {
+                        sw.WriteLine("@title Root");
+                        sw.WriteLine("adb push " + doclocation + "\root.zip" + "/sdcard/");
+                        sw.WriteLine("adb reboot recovery");
+                        sw.WriteLine("adb reboot recovery");
+                        sw.WriteLine("adb wait-for-device");
+                        sw.WriteLine("adb shell twrp install /sdcard/root.zip");
+                        sw.WriteLine("adb reboot");
+                    }
+                }
+                p.WaitForExit(500000);
+                MessageBox.Show("Your device should now have SuperSu Installed.");
+            }
+            else
+            {
+                MessageBox.Show("I cant find the root.zip file." + "/n" + "Please find it for me.");
+                OpenFileDialog findrootzip = new OpenFileDialog();
+                findrootzip.Title = "Restore Backup";
+                findrootzip.Filter = "Android Backup File | *.ab";
+                findrootzip.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                findrootzip.ShowDialog();
+                if (findrootzip.CheckFileExists == true && findrootzip.CheckPathExists == true)
+                {
+                    Process p = new Process();
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.FileName = "cmd.exe";
+                    info.RedirectStandardInput = true;
+                    info.UseShellExecute = false;
+                    info.RedirectStandardOutput = true;
+                    info.RedirectStandardError = true;
+                    p.StartInfo = info;
+                    p.Start();
+
+                    using (StreamWriter sw = p.StandardInput)
+                    {
+                        if (sw.BaseStream.CanWrite)
+                        {
+                            sw.WriteLine("@title Root");
+                            sw.WriteLine("adb push " + findrootzip.FileName + "\root.zip" + "/sdcard/");
+                            sw.WriteLine("adb reboot recovery");
+                            sw.WriteLine("adb reboot recovery");
+                            sw.WriteLine("adb wait-for-device");
+                            sw.WriteLine("adb shell twrp install /sdcard/root.zip");
+                            sw.WriteLine("adb reboot");
+                        }
+                    }
+
                 }
             }
-            p.WaitForExit(500000);
-            MessageBox.Show("Your device should now have SuperSu Installed.");}
-            else
-            { MessageBox.Show("I cant find the root.zip file." +"/n"+ "Please find it for me.");
-            OpenFileDialog findrootzip = new OpenFileDialog();
-            findrootzip.Title = "Restore Backup";
-            findrootzip.Filter = "Android Backup File | *.ab";
-            findrootzip.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            findrootzip.ShowDialog();
-            if (findrootzip.CheckFileExists == true && findrootzip.CheckPathExists == true)
-            { }
-
-              }
         }
 
         private void OOS_Dload_Click(object sender, RoutedEventArgs e)
