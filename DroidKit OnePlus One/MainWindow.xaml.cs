@@ -635,7 +635,8 @@ namespace DroidKit_OnePlus_One
                             p = Process.Start(si);
                             p.WaitForExit(500000);
                             MessageBox.Show("Update found. It will now download!");
-                            try { webclient.DownloadFileAsync(new Uri("http://repo.itechy21.com/Toolkit.exe"), doclocation + "/Toolkit.exe"); }
+                            WebClient update = new WebClient();
+                            try { update.DownloadFileAsync(new Uri("http://repo.itechy21.com/Toolkit.exe"), doclocation + "/Toolkit.exe"); }
                             catch (Exception ex)
                             {
                                 MessageBox.Show(ex.Message);
@@ -643,8 +644,8 @@ namespace DroidKit_OnePlus_One
                                 { File.Delete(doclocation + "/Toolkit.exe"); }
                             }
 
-                            webclient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progress);
-                            webclient.DownloadFileCompleted += new AsyncCompletedEventHandler(Complete);
+                            update.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progress);
+                            update.DownloadFileCompleted += new AsyncCompletedEventHandler(Complete);
                         }
                         if (a == b)
                         {
@@ -667,7 +668,7 @@ namespace DroidKit_OnePlus_One
         private void Complete(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Cancelled == true)
-            {
+            {   
                 File.Delete(doclocation + "/toolkit.msi");
                 MessageBox.Show("Download has been cancelled.");
                 CFU.Content = "Check for updates";
@@ -677,6 +678,7 @@ namespace DroidKit_OnePlus_One
             {
                 MessageBox.Show("Download completed! The Program will now exit and update...");
                 Process.Start(doclocation + "/toolkit.exe");
+                this.Close();
             }
             if (!File.Exists(doclocation + "/toolkit.exe") && e.Cancelled == false)
             { MessageBox.Show("There has been an error downloading the update. Please download it from the forum thread..."); }

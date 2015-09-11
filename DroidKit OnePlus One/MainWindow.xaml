@@ -40,7 +40,7 @@
                     <Label Content="Cyanogen OS (Stock)" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,-200,0,0" />
                     <Expander x:Name="Download_Progress" Header="Download Progress" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Width="375" Height="100" IsExpanded="True">
                         <Grid>
-                            <ProgressBar x:Name="bar" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="10" Margin="0,-30,0,0" Background="#FF2196F3" Value="0" BorderBrush="{x:Null}" />
+                            <ProgressBar x:Name="bar" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="10" Margin="0,-30,0,0" Background="{x:Null}" Value="0" BorderBrush="{x:Null}" />
                             <TextBlock x:Name="labelSpeed" Text="0 KB/s" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,-30,0,0"/>
                             <TextBlock x:Name="labelDownloaded" Text="0 MB" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-30,-225,0" />
                             <TextBlock x:Name="Status" Text="Status" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="-250,20,0,0" Foreground="Black" Width="200" TextBlock.TextAlignment="Center"/>
