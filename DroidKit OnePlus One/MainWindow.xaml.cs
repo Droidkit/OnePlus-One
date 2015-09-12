@@ -519,7 +519,7 @@ namespace DroidKit_OnePlus_One
 
         private void flash_recovery_Click(object sender, RoutedEventArgs e)
         {
-            if (select_recovery.SelectedItem == TWRP.Content)
+            if (select_recovery.Items[select_recovery.SelectedIndex] == "TWRP")
             {
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
@@ -531,7 +531,7 @@ namespace DroidKit_OnePlus_One
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
             }
-            if (select_recovery.SelectedItem == Philz.Content)
+            if (select_recovery.Items[select_recovery.SelectedIndex] == "Philz")
             {
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
@@ -543,7 +543,7 @@ namespace DroidKit_OnePlus_One
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
             }
-            if (select_recovery.SelectedItem == Stockre.Content)
+            if (select_recovery.Items[select_recovery.SelectedIndex] == "Stock")
             {
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
@@ -556,8 +556,11 @@ namespace DroidKit_OnePlus_One
                 flashrecovery.WaitForExit(500000);
             }
             else
-            { warning.Visibility = System.Windows.Visibility.Visible; }
+            { warning.Visibility = System.Windows.Visibility.Visible; 
+            MessageBox.Show("Error" + select_recovery.SelectedItem);
         }
+        }
+    
 
         private void MainWindow1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
