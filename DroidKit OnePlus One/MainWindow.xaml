@@ -53,7 +53,7 @@
                 <Grid>
                     <Label Content="Install Custom Recovery" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-210,-125,0,0" />
                     <Button x:Name="flash_recovery" Content="Flash" HorizontalAlignment="Center" Margin="-210,25,0,0" VerticalAlignment="Center" Width="150" Click="flash_recovery_Click"/>
-                    <ComboBox x:Name="select_recovery" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-210,0,0,50" Width="150" ToolTip="Select the recovery to install" IsSynchronizedWithCurrentItem="False" >
+                    <ComboBox x:Name="select_recovery" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-210,0,0,50" Width="150" ToolTip="Select the recovery to install" IsSynchronizedWithCurrentItem="True" >
                         <ListBoxItem x:Name="TWRP" Content="TWRP" ToolTip="Installs TWRP recovery" IsSelected="True"/>
                         <ListBoxItem x:Name="Philz" Content="Philz" ToolTip="Installs Philz Touch Recovery"/>
                         <ListBoxItem x:Name="Stockre" Content="Stock" ToolTip="Installs the Stock (Cyanogen) Recovery"/>

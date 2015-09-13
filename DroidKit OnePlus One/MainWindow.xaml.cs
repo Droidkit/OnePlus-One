@@ -519,7 +519,7 @@ namespace DroidKit_OnePlus_One
 
         private void flash_recovery_Click(object sender, RoutedEventArgs e)
         {
-            if (select_recovery.Items[select_recovery.SelectedIndex] == "TWRP")
+            if (select_recovery.Text == "TWRP")
             {
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
@@ -531,7 +531,7 @@ namespace DroidKit_OnePlus_One
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
             }
-            if (select_recovery.Items[select_recovery.SelectedIndex] == "Philz")
+            if (select_recovery.Text == "Philz")
             {
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
@@ -543,8 +543,9 @@ namespace DroidKit_OnePlus_One
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
             }
-            if (select_recovery.Items[select_recovery.SelectedIndex] == "Stock")
+            if (select_recovery.Text == "Stock")
             {
+                warning.Visibility = System.Windows.Visibility.Hidden;
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.CreateNoWindow = false;
                 process.FileName = "fastboot.exe";
@@ -555,10 +556,8 @@ namespace DroidKit_OnePlus_One
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
             }
-            else
-            { warning.Visibility = System.Windows.Visibility.Visible; 
-            MessageBox.Show("Error" + select_recovery.SelectedItem);
-        }
+            if(select_recovery.Text == "")
+            { warning.Visibility = System.Windows.Visibility.Visible; }
         }
     
 
