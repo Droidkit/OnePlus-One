@@ -188,10 +188,6 @@ namespace DroidKit_OnePlus_One
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
                 var backup = Process.Start(process);
-                string Output = backup.StandardOutput.ReadToEnd();
-                string Error = backup.StandardError.ReadToEnd();
-                loging.Text = Output;
-                loging.Text = Error;
             }
         }
 
@@ -425,10 +421,6 @@ namespace DroidKit_OnePlus_One
                     sw.WriteLine("adb shell twrp install /sdcard/OOS.zip");
                 }
             }
-            string Output = p.StandardOutput.ReadToEnd();
-            string Error = p.StandardError.ReadToEnd();
-            loging.Text = Output;
-            loging.Text = Error;
         }
 
         private void COS_Dload_Click(object sender, RoutedEventArgs e)
@@ -537,10 +529,6 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
-                string Output = flashrecovery.StandardOutput.ReadToEnd();
-                string Error = flashrecovery.StandardError.ReadToEnd();
-                loging.Text = Output;
-                loging.Text = Error;
             }
             if (select_recovery.Text == "Philz")
             {
@@ -553,10 +541,6 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
-                string Output = flashrecovery.StandardOutput.ReadToEnd();
-                string Error = flashrecovery.StandardError.ReadToEnd();
-                loging.Text = Output;
-                loging.Text = Error;
             }
             if (select_recovery.Text == "Stock")
             {
@@ -570,10 +554,6 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
-                string Output = flashrecovery.StandardOutput.ReadToEnd();
-                string Error = flashrecovery.StandardError.ReadToEnd();
-                loging.Text = Output;
-                loging.Text = Error;
             }
             if(select_recovery.Text == "")
             { warning.Visibility = System.Windows.Visibility.Visible; }
@@ -607,10 +587,6 @@ namespace DroidKit_OnePlus_One
             process.UseShellExecute = false;
             var unlock = Process.Start(process);
             unlock.WaitForExit(500000);
-            string Output = unlock.StandardOutput.ReadToEnd();
-            string Error = unlock.StandardError.ReadToEnd();
-            loging.Text = Output;
-            loging.Text = Error;
         }
 
         private void stop_Click(object sender, RoutedEventArgs e)

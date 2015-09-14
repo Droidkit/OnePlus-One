@@ -66,11 +66,6 @@
                     <TextBlock x:Name="warning" Text="Select an option!" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="-200,0,0,-80" Foreground="Red" Visibility="Hidden" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Logging" IsEnabled="False" Visibility="Hidden" Opacity="0">
-                <Grid>
-                    <TextBlock  x:Name="loging" Text="THIS IS A TEST " Block.LineHeight="20" LineHeight="6"/>
-                </Grid>
-            </TabItem>
             <TabItem Header="About" Initialized="TabItem_Initialized">
                 <Grid>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="This ToolKit was originally made by iTechy(21). &#10; Material Design theme by BuchersBoyz &#10;(and available on git-hub).&#10;If you paid for this let me know as this is free!" TextAlignment="Center" Width="300" Margin="0,-47,0,0" />
