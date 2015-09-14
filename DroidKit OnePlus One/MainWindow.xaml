@@ -68,7 +68,7 @@
             </TabItem>
             <TabItem Header="Logging" IsEnabled="False" Visibility="Hidden" Opacity="0">
                 <Grid>
-                    <TextBox x:Name="loging" SpellCheck.IsEnabled="True" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Height="220" TextAlignment="Center" Background="#72000000" Foreground="White" UndoLimit="0" Text="Nothing to see here yet..." BorderThickness="7"/>
+                    <TextBlock  x:Name="loging" Text="THIS IS A TEST " Block.LineHeight="20" LineHeight="6"/>
                 </Grid>
             </TabItem>
             <TabItem Header="About" Initialized="TabItem_Initialized">

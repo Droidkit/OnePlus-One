@@ -165,20 +165,6 @@ namespace DroidKit_OnePlus_One
                 Mode.Dispatcher.BeginInvoke(new Action(() => Mode.Content = pro.StandardOutput.ReadToEnd()));
                 AV.Dispatcher.BeginInvoke(new Action(() => AV.Content = process.StandardOutput.ReadToEnd()));
                 Device.Dispatcher.BeginInvoke(new Action(() => Device.Content = pr.StandardOutput.ReadToEnd()));
-                string Output1 = process.StandardOutput.ReadToEnd();
-                string Error1 = process.StandardError.ReadToEnd();
-                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Output1 +"\n"));
-                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Error1 +"\n"));
-
-                string Output2 = pro.StandardOutput.ReadToEnd();
-                string Error2 = pro.StandardError.ReadToEnd();
-                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Output2 + "\n"));
-                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Error2 + "\n"));
-
-                string Output3 = pr.StandardOutput.ReadToEnd();
-                string Error3 = pr.StandardError.ReadToEnd();
-                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Output3 + "\n"));
-                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Error3 + "\n"));
             }
             catch (Exception ex)
             { MessageBox.Show(ex.Message); }
@@ -226,10 +212,6 @@ namespace DroidKit_OnePlus_One
             process.RedirectStandardOutput = true;
             process.UseShellExecute = false;
             var restore = Process.Start(process);
-            string Output = restore.StandardOutput.ReadToEnd();
-            string Error = restore.StandardError.ReadToEnd();
-            loging.Text = Output;
-            loging.Text = Error;
             }
         }
 
@@ -252,10 +234,6 @@ namespace DroidKit_OnePlus_One
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
                 var install = Process.Start(process);
-                string Output = install.StandardOutput.ReadToEnd();
-                string Error = install.StandardError.ReadToEnd();
-                loging.Text = Output;
-                loging.Text = Error;
             }
         }
 
@@ -272,10 +250,6 @@ namespace DroidKit_OnePlus_One
             var process = Process.Start(copy);
             save.Visibility = System.Windows.Visibility.Visible;
             save.Content = "Saved to " + doclocation;
-            string Output = process.StandardOutput.ReadToEnd();
-            string Error = process.StandardError.ReadToEnd();
-            loging.Text = Output;
-            loging.Text = Error;
         }
 
         private void efs_restore_Click(object sender, RoutedEventArgs e)
@@ -311,10 +285,6 @@ namespace DroidKit_OnePlus_One
                     }
                 }
                 p.WaitForExit(500000);
-                string Output = p.StandardOutput.ReadToEnd();
-                string Error = p.StandardError.ReadToEnd();
-                loging.Text = Output;
-                loging.Text = Error;
                 MessageBox.Show("Your device should now have SuperSu Installed.");
             }
             else
@@ -350,10 +320,6 @@ namespace DroidKit_OnePlus_One
                             sw.WriteLine("adb reboot");
                         }
                     }
-                    string Output = p.StandardOutput.ReadToEnd();
-                    string Error = p.StandardError.ReadToEnd();
-                    loging.Text = Output;
-                    loging.Text = Error;
 
                 }
             }
