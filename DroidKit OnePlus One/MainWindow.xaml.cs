@@ -167,18 +167,18 @@ namespace DroidKit_OnePlus_One
                 Device.Dispatcher.BeginInvoke(new Action(() => Device.Content = pr.StandardOutput.ReadToEnd()));
                 string Output1 = process.StandardOutput.ReadToEnd();
                 string Error1 = process.StandardError.ReadToEnd();
-                loging.Text = Output1;
-                loging.Text = Error1;
+                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Output1 +"\n"));
+                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Error1 +"\n"));
 
                 string Output2 = pro.StandardOutput.ReadToEnd();
                 string Error2 = pro.StandardError.ReadToEnd();
-                loging.Text = Output2;
-                loging.Text = Error2;
+                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Output2 + "\n"));
+                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Error2 + "\n"));
 
                 string Output3 = pr.StandardOutput.ReadToEnd();
                 string Error3 = pr.StandardError.ReadToEnd();
-                loging.Text = Output3;
-                loging.Text = Error3;
+                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Output3 + "\n"));
+                loging.Dispatcher.BeginInvoke(new Action(() => loging.Text = Error3 + "\n"));
             }
             catch (Exception ex)
             { MessageBox.Show(ex.Message); }
