@@ -60,9 +60,9 @@ namespace DroidKit_OnePlus_One
             {
                 watcherremove.Stop();
                 watcherremove.Start();
+            }       
             }
-            
-            }
+
         public void detect_work(object sender, DoWorkEventArgs e)
         {
             try
@@ -165,7 +165,20 @@ namespace DroidKit_OnePlus_One
                 Mode.Dispatcher.BeginInvoke(new Action(() => Mode.Content = pro.StandardOutput.ReadToEnd()));
                 AV.Dispatcher.BeginInvoke(new Action(() => AV.Content = process.StandardOutput.ReadToEnd()));
                 Device.Dispatcher.BeginInvoke(new Action(() => Device.Content = pr.StandardOutput.ReadToEnd()));
-                
+                string Output1 = process.StandardOutput.ReadToEnd();
+                string Error1 = process.StandardError.ReadToEnd();
+                loging.Text = Output1;
+                loging.Text = Error1;
+
+                string Output2 = pro.StandardOutput.ReadToEnd();
+                string Error2 = pro.StandardError.ReadToEnd();
+                loging.Text = Output2;
+                loging.Text = Error2;
+
+                string Output3 = pr.StandardOutput.ReadToEnd();
+                string Error3 = pr.StandardError.ReadToEnd();
+                loging.Text = Output3;
+                loging.Text = Error3;
             }
             catch (Exception ex)
             { MessageBox.Show(ex.Message); }
@@ -189,6 +202,10 @@ namespace DroidKit_OnePlus_One
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
                 var backup = Process.Start(process);
+                string Output = backup.StandardOutput.ReadToEnd();
+                string Error = backup.StandardError.ReadToEnd();
+                loging.Text = Output;
+                loging.Text = Error;
             }
         }
 
@@ -209,6 +226,10 @@ namespace DroidKit_OnePlus_One
             process.RedirectStandardOutput = true;
             process.UseShellExecute = false;
             var restore = Process.Start(process);
+            string Output = restore.StandardOutput.ReadToEnd();
+            string Error = restore.StandardError.ReadToEnd();
+            loging.Text = Output;
+            loging.Text = Error;
             }
         }
 
@@ -230,7 +251,11 @@ namespace DroidKit_OnePlus_One
                 process.RedirectStandardError = true;
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
-                var restore = Process.Start(process);
+                var install = Process.Start(process);
+                string Output = install.StandardOutput.ReadToEnd();
+                string Error = install.StandardError.ReadToEnd();
+                loging.Text = Output;
+                loging.Text = Error;
             }
         }
 
@@ -247,6 +272,10 @@ namespace DroidKit_OnePlus_One
             var process = Process.Start(copy);
             save.Visibility = System.Windows.Visibility.Visible;
             save.Content = "Saved to " + doclocation;
+            string Output = process.StandardOutput.ReadToEnd();
+            string Error = process.StandardError.ReadToEnd();
+            loging.Text = Output;
+            loging.Text = Error;
         }
 
         private void efs_restore_Click(object sender, RoutedEventArgs e)
@@ -282,6 +311,10 @@ namespace DroidKit_OnePlus_One
                     }
                 }
                 p.WaitForExit(500000);
+                string Output = p.StandardOutput.ReadToEnd();
+                string Error = p.StandardError.ReadToEnd();
+                loging.Text = Output;
+                loging.Text = Error;
                 MessageBox.Show("Your device should now have SuperSu Installed.");
             }
             else
@@ -317,6 +350,10 @@ namespace DroidKit_OnePlus_One
                             sw.WriteLine("adb reboot");
                         }
                     }
+                    string Output = p.StandardOutput.ReadToEnd();
+                    string Error = p.StandardError.ReadToEnd();
+                    loging.Text = Output;
+                    loging.Text = Error;
 
                 }
             }
@@ -422,6 +459,10 @@ namespace DroidKit_OnePlus_One
                     sw.WriteLine("adb shell twrp install /sdcard/OOS.zip");
                 }
             }
+            string Output = p.StandardOutput.ReadToEnd();
+            string Error = p.StandardError.ReadToEnd();
+            loging.Text = Output;
+            loging.Text = Error;
         }
 
         private void COS_Dload_Click(object sender, RoutedEventArgs e)
@@ -530,6 +571,10 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
+                string Output = flashrecovery.StandardOutput.ReadToEnd();
+                string Error = flashrecovery.StandardError.ReadToEnd();
+                loging.Text = Output;
+                loging.Text = Error;
             }
             if (select_recovery.Text == "Philz")
             {
@@ -542,6 +587,10 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
+                string Output = flashrecovery.StandardOutput.ReadToEnd();
+                string Error = flashrecovery.StandardError.ReadToEnd();
+                loging.Text = Output;
+                loging.Text = Error;
             }
             if (select_recovery.Text == "Stock")
             {
@@ -555,9 +604,14 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
+                string Output = flashrecovery.StandardOutput.ReadToEnd();
+                string Error = flashrecovery.StandardError.ReadToEnd();
+                loging.Text = Output;
+                loging.Text = Error;
             }
             if(select_recovery.Text == "")
             { warning.Visibility = System.Windows.Visibility.Visible; }
+
         }
     
 
@@ -569,8 +623,8 @@ namespace DroidKit_OnePlus_One
             process.CreateNoWindow = true;
             process.FileName = "adb.exe";
             process.Arguments = "kill-server";
-            process.RedirectStandardError = true;
-            process.RedirectStandardOutput = true;
+            process.RedirectStandardError = false;
+            process.RedirectStandardOutput = false;
             process.UseShellExecute = false;
             var exit = Process.Start(process);
             exit.WaitForExit(500000);
@@ -587,6 +641,10 @@ namespace DroidKit_OnePlus_One
             process.UseShellExecute = false;
             var unlock = Process.Start(process);
             unlock.WaitForExit(500000);
+            string Output = unlock.StandardOutput.ReadToEnd();
+            string Error = unlock.StandardError.ReadToEnd();
+            loging.Text = Output;
+            loging.Text = Error;
         }
 
         private void stop_Click(object sender, RoutedEventArgs e)
