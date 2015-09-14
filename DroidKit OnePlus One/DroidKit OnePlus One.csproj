@@ -46,7 +46,7 @@
     <AssemblyInfoVersionSettings>
     </AssemblyInfoVersionSettings>
     <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
-    <AssemblyVersion>0.0.0.5</AssemblyVersion>
+    <AssemblyVersion>0.0.0.6</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
