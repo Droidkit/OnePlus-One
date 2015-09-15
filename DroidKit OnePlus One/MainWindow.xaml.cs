@@ -715,6 +715,11 @@ namespace DroidKit_OnePlus_One
             { NewV.Content = "Not Connected"; }
         }
 
+        private void advanced_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("CMD.exe");
+        }
+
 
     }
 }

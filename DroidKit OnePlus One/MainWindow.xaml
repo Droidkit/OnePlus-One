@@ -18,6 +18,7 @@
                     <Button x:Name="adb_restore" Content="Restore" HorizontalAlignment="Center" Margin="-245,30,0,0" VerticalAlignment="Center" Width="80" Click="adb_restore_Click"/>
                     <Button x:Name="select_apk" Content="Select APK" HorizontalAlignment="Center" Margin="170,0,0,0" VerticalAlignment="Center" Width="100" Click="select_apk_Click"/>
                     <Label Content="Install App" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="170,-50,0,0" />
+                    <Button x:Name="advanced" Content="Advanced CMD Window" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,24,0,40" Click="advanced_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Root ADB">
