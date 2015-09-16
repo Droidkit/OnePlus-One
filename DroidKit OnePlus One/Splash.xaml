@@ -11,21 +11,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 <GradientStop Color="White" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBlock x:Name="status" Text="Loading Application..." HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,10,10" Width="480" Height="47" TextAlignment="Center" FontFamily="Roboto Light" FontSize="14" TextDecorations="{x:Null}">
-            <TextBlock.Triggers>
-                <EventTrigger RoutedEvent="Loaded">
-                    <BeginStoryboard>
-                        <Storyboard Duration="0:0:3" RepeatBehavior="Forever">
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Text">
-                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Loading Application."/>
-                                <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="Loading Application.."/>
-                                <DiscreteObjectKeyFrame KeyTime="0:0:2" Value="Loading Application..."/>
-                            </ObjectAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </TextBlock.Triggers>
-        </TextBlock>
+        <TextBlock x:Name="status" Text="Loading Application..." HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,10,10" Width="480" Height="47" TextAlignment="Center" FontFamily="Roboto Light" FontSize="14" TextDecorations="{x:Null}"/>
         <Image HorizontalAlignment="Center" Height="120" Margin="190,11,190,69" VerticalAlignment="Center" Width="120" Source="resources/Droidkiticon.ico"/>
+        <ProgressBar x:Name="load" HorizontalAlignment="Left" Height="26" Margin="10,172,0,0" VerticalAlignment="Top" Width="480"/>
     </Grid>
 </Controls:MetroWindow>
