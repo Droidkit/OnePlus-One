@@ -25,7 +25,7 @@
     <AssemblyInfoVersionSettings>
     </AssemblyInfoVersionSettings>
     <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
-    <AssemblyVersion>0.0.0.8</AssemblyVersion>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
     <PublishUrl>C:\Users\James\Documents\Depoly\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>

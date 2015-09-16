@@ -188,6 +188,7 @@ namespace DroidKit_OnePlus_One
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
                 var backup = Process.Start(process);
+                MessageBox.Show("The Device has been backed up!");
             }
         }
 
@@ -203,11 +204,12 @@ namespace DroidKit_OnePlus_One
             ProcessStartInfo process = new ProcessStartInfo();
             process.CreateNoWindow = false;
             process.FileName = "adb.exe";
-            process.Arguments = "backup -apk -all -f \"" + openFileDialog.FileName + "\"";
+            process.Arguments = "restore " + openFileDialog.FileName;
             process.RedirectStandardError = true;
             process.RedirectStandardOutput = true;
             process.UseShellExecute = false;
             var restore = Process.Start(process);
+            MessageBox.Show("The Device has been restored up successfully!");
             }
         }
 
@@ -230,7 +232,8 @@ namespace DroidKit_OnePlus_One
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
                 var install = Process.Start(process);
-            }
+                installed.Visibility = System.Windows.Visibility.Visible;
+                }
         }
 
         private void efs_backup_Click(object sender, RoutedEventArgs e)
@@ -316,7 +319,8 @@ namespace DroidKit_OnePlus_One
                             sw.WriteLine("adb reboot");
                         }
                     }
-
+                    p.WaitForExit();
+                    MessageBox.Show("The Device should now have SuperSU Installed!");
                 }
             }
         }
@@ -419,8 +423,11 @@ namespace DroidKit_OnePlus_One
                     sw.WriteLine("adb reboot recovery");
                     sw.WriteLine("adb wait-for-device");
                     sw.WriteLine("adb shell twrp install /sdcard/OOS.zip");
+                    sw.WriteLine("exit");
                 }
             }
+            p.WaitForExit();
+            MessageBox.Show("The Recovery flashed Successfully!");
         }
 
         private void COS_Dload_Click(object sender, RoutedEventArgs e)
@@ -529,6 +536,7 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
+                MessageBox.Show("The Recovery flashed Successfully!");
             }
             if (select_recovery.Text == "Philz")
             {
@@ -541,6 +549,7 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
+                MessageBox.Show("The Recovery flashed Successfully!");
             }
             if (select_recovery.Text == "Stock")
             {
@@ -554,6 +563,7 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
+                MessageBox.Show("The Recovery flashed Successfully!");
             }
             if(select_recovery.Text == "")
             { warning.Visibility = System.Windows.Visibility.Visible; }
@@ -587,6 +597,7 @@ namespace DroidKit_OnePlus_One
             process.UseShellExecute = false;
             var unlock = Process.Start(process);
             unlock.WaitForExit(500000);
+            MessageBox.Show("The Device is now unlocked!");
         }
 
         private void stop_Click(object sender, RoutedEventArgs e)
@@ -671,7 +682,7 @@ namespace DroidKit_OnePlus_One
         {
             if (e.Cancelled == true)
             {   
-                File.Delete(doclocation + "/toolkit.msi");
+                File.Delete(doclocation + "/toolkit.exe");
                 MessageBox.Show("Download has been cancelled.");
                 CFU.Content = "Check for updates";
             }
