@@ -52,8 +52,10 @@ namespace DroidKit_OnePlus_One
             startup.RedirectStandardError = true;
             startup.RedirectStandardOutput = true;
             startup.UseShellExecute = false;
+            Dispatcher.BeginInvoke(new Action(() => status.Text = "Starting ADB"));
             var process = Process.Start(startup);
             process.WaitForExit(50000);
+            Dispatcher.BeginInvoke(new Action(() => status.Text = "Checking for updates"));
             try
             {
                 using (var client = new WebClient())
@@ -77,7 +79,7 @@ namespace DroidKit_OnePlus_One
                         }
                         else
                         {
-                            Dispatcher.BeginInvoke(new Action(() => status.Text = "No Update available"));
+                            Dispatcher.BeginInvoke(new Action(() => status.Text = "No Update available!"));
                             Thread.Sleep(2000);
                         }
                     }
@@ -93,7 +95,7 @@ namespace DroidKit_OnePlus_One
              private void load_done(object sender, RunWorkerCompletedEventArgs e)
         {
                MainWindow m = new MainWindow();
-               status.Text = "Finished!";
+               status.Text = "Loading GUI...";
                Thread.Sleep(1500);
                m.Show();
                this.Close();
