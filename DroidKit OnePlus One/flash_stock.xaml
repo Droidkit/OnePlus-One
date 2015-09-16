@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
         Title="Flash to Stock" Height="241" Width="190" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Roboto" Icon="resources/Droidkiticon.ico">
     <Grid>
         <Label Content="1. Select Memory Size" HorizontalAlignment="Center" VerticalAlignment="Top"/>

@@ -5,6 +5,8 @@
         xmlns:Dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
         Title="DroidKit - OnePlus One" Height="350" Width="570" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Roboto" Icon="resources/Droidkiticon.ico" Closing="MainWindow1_Closing" Initialized="MainWindow1_Initialized">
     <Grid>
         <Dragablz:TabablzControl>
