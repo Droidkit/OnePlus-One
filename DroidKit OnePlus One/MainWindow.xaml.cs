@@ -200,7 +200,7 @@ namespace DroidKit_OnePlus_One
             openFileDialog.Title = "Restore Backup";
             openFileDialog.Filter = "Android Backup File | *.ab";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            openFileDialog.ialoialog();
+            openFileDialog.ShowDialog();
             if (openFileDialog.CheckFileExists == true && openFileDialog.CheckPathExists == true)
             {
             ProcessStartInfo process = new ProcessStartInfo();
