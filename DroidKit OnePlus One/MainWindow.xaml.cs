@@ -20,6 +20,7 @@ using System.Net;
 using System.ComponentModel;
 using System.Management;
 using Microsoft.Win32;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace DroidKit_OnePlus_One
 {
@@ -35,6 +36,7 @@ namespace DroidKit_OnePlus_One
         public MainWindow()
         {
             InitializeComponent();
+           
         }
         private void MainWindow1_Initialized(object sender, EventArgs e)
         {   
@@ -170,7 +172,7 @@ namespace DroidKit_OnePlus_One
             { MessageBox.Show(ex.Message); }
         }
 
-        private void adb_backup_Click(object sender, RoutedEventArgs e)
+        private async void adb_backup_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.SaveFileDialog saveFileDialog1 = new Microsoft.Win32.SaveFileDialog();
             saveFileDialog1.Title = "Save Backup";
@@ -188,17 +190,17 @@ namespace DroidKit_OnePlus_One
                 process.RedirectStandardOutput = true;
                 process.UseShellExecute = false;
                 var backup = Process.Start(process);
-                MessageBox.Show("The Device has been backed up!");
+                await this.ShowMessageAsync("Complete!", "The device backed Up successfully!");
             }
         }
 
-        private void adb_restore_Click(object sender, RoutedEventArgs e)
+        private async void adb_restore_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             openFileDialog.Title = "Restore Backup";
             openFileDialog.Filter = "Android Backup File | *.ab";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            openFileDialog.ShowDialog();
+            openFileDialog.ialoialog();
             if (openFileDialog.CheckFileExists == true && openFileDialog.CheckPathExists == true)
             {
             ProcessStartInfo process = new ProcessStartInfo();
@@ -209,7 +211,7 @@ namespace DroidKit_OnePlus_One
             process.RedirectStandardOutput = true;
             process.UseShellExecute = false;
             var restore = Process.Start(process);
-            MessageBox.Show("The Device has been restored up successfully!");
+            await this.ShowMessageAsync("Complete!", "All data has been Restored!");
             }
         }
 
@@ -236,7 +238,7 @@ namespace DroidKit_OnePlus_One
                 }
         }
 
-        private void efs_backup_Click(object sender, RoutedEventArgs e)
+        private async void efs_backup_Click(object sender, RoutedEventArgs e)
         {
             var backup = Process.Start("efs backup.bat");
             backup.WaitForExit(500000);
@@ -248,15 +250,18 @@ namespace DroidKit_OnePlus_One
             copy.RedirectStandardOutput = true;
             var process = Process.Start(copy);
             save.Visibility = System.Windows.Visibility.Visible;
+            await this.ShowMessageAsync("Complete!", "The efs Partition has been backed Up successfully!");
             save.Content = "Saved to " + doclocation;
         }
 
-        private void efs_restore_Click(object sender, RoutedEventArgs e)
+        private async void efs_restore_Click(object sender, RoutedEventArgs e)
         {
             var efsrestore = Process.Start("efs restore.bat");
+            efsrestore.WaitForExit();
+            await this.ShowMessageAsync("Complete!", "The efs Partition has been restored successfully!");
         }
 
-        private void root_Click(object sender, RoutedEventArgs e)
+        private async void root_Click(object sender, RoutedEventArgs e)
         {
             if (File.Exists(doclocation + "\root.zip"))
             {
@@ -284,11 +289,11 @@ namespace DroidKit_OnePlus_One
                     }
                 }
                 p.WaitForExit(500000);
-                MessageBox.Show("Your device should now have SuperSu Installed.");
+                await this.ShowMessageAsync("Complete!", "The device Should have SuperSU installed!");
             }
             else
             {
-                MessageBox.Show("I cant find the root.zip file." + "\n" + "Please find it for me.");
+                await this.ShowMessageAsync("OPPS!", "I cant find the root zip! Please find it for me!");
                 OpenFileDialog findrootzip = new OpenFileDialog();
                 findrootzip.Title = "Restore Backup";
                 findrootzip.Filter = "Android Backup File | *.ab";
@@ -320,18 +325,18 @@ namespace DroidKit_OnePlus_One
                         }
                     }
                     p.WaitForExit();
-                    MessageBox.Show("The Device should now have SuperSU Installed!");
+                    await this.ShowMessageAsync("Complete!", "The device Should have SuperSU installed!");
                 }
             }
         }
 
-        private void OOS_Dload_Click(object sender, RoutedEventArgs e)
+        private async void OOS_Dload_Click(object sender, RoutedEventArgs e)
         {
             using (webclient = new WebClient())
             {
                 if (File.Exists(doclocation + "/OOS.zip"))
                 {
-                    MessageBox.Show("You have already downloaded the file. You do not need to download it again!");
+                    await this.ShowMessageAsync("Complete", "The Recovery flashed without a problem!");
                 }
                 if (!File.Exists(doclocation + "/OOS.zip"))
                 {
@@ -373,7 +378,7 @@ namespace DroidKit_OnePlus_One
                 (e.TotalBytesToReceive / 1024d / 1024d).ToString("0.00"));
         }
 
-        private void CompleteOOS(object sender, AsyncCompletedEventArgs e)
+        private async void CompleteOOS(object sender, AsyncCompletedEventArgs e)
         {
             sw.Reset();
             if (e.Cancelled == true)
@@ -381,20 +386,20 @@ namespace DroidKit_OnePlus_One
                 webclient.CancelAsync();
                 if (File.Exists(doclocation+"/OOS.zip"))
                 { File.Delete(doclocation+"/OOS.zip"); }
-                MessageBox.Show("Download has been cancelled.");
+                await this.ShowMessageAsync("Cancelled", "The download has stopped...");
                 bar.Value = 0;
                 Status.Text = "Cancelled";
                 labelDownloaded.Text = "0mb / 0mb";
                 labelSpeed.Text = "0mb/s";
             }
             if (File.Exists(doclocation+"/OOS.zip"))
-            {
-                MessageBox.Show("Download completed!");
+            {   
+                await this.ShowMessageAsync("Complete!", "The file has been downloaded. You can now flash Oxygen OS!");
                 Status.Text = "Download Completed";
             }
                 if (e.Cancelled == false && !File.Exists(doclocation+"/OOS.zip"))
                 {
-                    MessageBox.Show("There was an internal error. Please report this on the forum thread!");
+                    await this.ShowMessageAsync("Error!", "Something really went wrong please tell me on the XDA Thread!");
                     bar.Value = 0;
                     Status.Text = "Internal Error";
                     labelDownloaded.Text = "0mb / 0mb";
@@ -403,7 +408,7 @@ namespace DroidKit_OnePlus_One
             }
         
 
-        private void flash_OOS_Click(object sender, RoutedEventArgs e)
+        private async void flash_OOS_Click(object sender, RoutedEventArgs e)
         {
             Process p = new Process();
             ProcessStartInfo info = new ProcessStartInfo();
@@ -427,10 +432,10 @@ namespace DroidKit_OnePlus_One
                 }
             }
             p.WaitForExit();
-            MessageBox.Show("The Recovery flashed Successfully!");
+            await this.ShowMessageAsync("Complete!", "The Oxygen OS Should be installed!");
         }
 
-        private void COS_Dload_Click(object sender, RoutedEventArgs e)
+        private async void COS_Dload_Click(object sender, RoutedEventArgs e)
         {
             using (webclient = new WebClient())
             {
@@ -438,7 +443,7 @@ namespace DroidKit_OnePlus_One
                 if (File.Exists(doclocation + "/stock.zip"))
                     if (File.Exists(doclocation + "/stock/boot.img"))
                     {
-                        MessageBox.Show("You have already downloaded the file. You do not need to download it again!");
+                        await this.ShowMessageAsync("Error!", "You have already downloaded the zip you don't need to download it again!");
                     }
                 if (!File.Exists(doclocation + "/stock.zip"))
                 {
@@ -454,7 +459,7 @@ namespace DroidKit_OnePlus_One
                                 try { webclient.DownloadFileAsync(new Uri("http://builds.cyngn.com/factory/bacon/cm-12.0-YNG1TAS2I3-bacon-signed-fastboot.zip"), doclocation + "/stock.zip"); }
                                 catch (Exception ex)
                                 {
-                                    MessageBox.Show(ex.Message);
+                                    MessageBox.Show(ex.Message + " \n"+ "(I cant theme this message. Sorry :( )");
                                     if (File.Exists(doclocation + "/stock.zip"))
                                     { File.Delete(doclocation + "/stock.zip"); }
                                 }
@@ -478,7 +483,7 @@ namespace DroidKit_OnePlus_One
             {
                 if (File.Exists(doclocation + "/stock.zip"))
                 { File.Delete(doclocation + "/stock.zip"); }
-                MessageBox.Show("Download has been cancelled.");
+                await this.ShowMessageAsync("Cancelled", "The download was cancelled");
                 bar.Value = 0;
                 Status.Text = "Cancelled";
                 labelDownloaded.Text = "0mb / 0mb";
@@ -486,7 +491,7 @@ namespace DroidKit_OnePlus_One
             }
             if (File.Exists(doclocation + "/stock.zip"))
             {
-                MessageBox.Show("Download completed!");
+                await this.ShowMessageAsync("Complete!", "The Download completed successfully");
                 Status.Text = "Extracting zip...";
                 string zipdoclocation = doclocation+"/stock.zip";
                 string extractdoclocation = doclocation+"/stock";
@@ -495,15 +500,15 @@ namespace DroidKit_OnePlus_One
                     {
                         Status.Text = "Unzipping...";
                         await Task.Run(() =>  System.IO.Compression.ZipFile.ExtractToDirectory(zipdoclocation, extractdoclocation));
-                        MessageBox.Show("Unzip Complete. You can now flash back to stock!");
+                        await this.ShowMessageAsync("Complete!", "The file unzipped without a problem!");
                     }
                 }
             }
             if (e.Cancelled == false && !File.Exists(doclocation+"/stock.zip"))
             {
-                MessageBox.Show("There was an internal error. Please report this on the forum thread!");
+                await this.ShowMessageAsync("Internal Error!", "Please report this on the forum thread!");
                 bar.Value = 0;
-                Status.Text = "Cancelled";
+                Status.Text = "Error";
                 labelDownloaded.Text = "0mb / 0mb";
                 labelSpeed.Text = "0mb/s";
             }
@@ -523,7 +528,7 @@ namespace DroidKit_OnePlus_One
             win2.Show();
         }
 
-        private void flash_recovery_Click(object sender, RoutedEventArgs e)
+        private async void flash_recovery_Click(object sender, RoutedEventArgs e)
         {
             if (select_recovery.Text == "TWRP")
             {
@@ -536,7 +541,7 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
-                MessageBox.Show("The Recovery flashed Successfully!");
+                await this.ShowMessageAsync("Complete!", "The Recovery flashed without a problem!");
             }
             if (select_recovery.Text == "Philz")
             {
@@ -549,7 +554,7 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
-                MessageBox.Show("The Recovery flashed Successfully!");
+                await this.ShowMessageAsync("Complete!", "The Recovery flashed without a problem!");
             }
             if (select_recovery.Text == "Stock")
             {
@@ -563,7 +568,7 @@ namespace DroidKit_OnePlus_One
                 process.UseShellExecute = false;
                 var flashrecovery = Process.Start(process);
                 flashrecovery.WaitForExit(500000);
-                MessageBox.Show("The Recovery flashed Successfully!");
+                await this.ShowMessageAsync("Complete!", "The Recovery flashed without a problem!");
             }
             if(select_recovery.Text == "")
             { warning.Visibility = System.Windows.Visibility.Visible; }
@@ -586,7 +591,7 @@ namespace DroidKit_OnePlus_One
             exit.WaitForExit(500000);
         }
 
-        private void ul_bl_Click(object sender, RoutedEventArgs e)
+        private async void ul_bl_Click(object sender, RoutedEventArgs e)
         {
             ProcessStartInfo process = new ProcessStartInfo();
             process.CreateNoWindow = true;
@@ -597,7 +602,7 @@ namespace DroidKit_OnePlus_One
             process.UseShellExecute = false;
             var unlock = Process.Start(process);
             unlock.WaitForExit(500000);
-            MessageBox.Show("The Device is now unlocked!");
+            await this.ShowMessageAsync("Complete!", "The bootloader is now unlocked!");
         }
 
         private void stop_Click(object sender, RoutedEventArgs e)
@@ -614,7 +619,7 @@ namespace DroidKit_OnePlus_One
             
         }
 
-        private void CFU_Click(object sender, RoutedEventArgs e)
+        private async void CFU_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -647,7 +652,7 @@ namespace DroidKit_OnePlus_One
                             si.Arguments = "kill-server";
                             p = Process.Start(si);
                             p.WaitForExit(500000);
-                            MessageBox.Show("Update found. It will now download!");
+                            await this.ShowMessageAsync("Update Available!", "The download and install will start." +"\n"+" The program will exit to install!");
                             WebClient update = new WebClient();
                             try { update.DownloadFileAsync(new Uri("http://repo.itechy21.com/Toolkit.exe"), doclocation + "/Toolkit.exe"); }
                             catch (Exception ex)
@@ -662,12 +667,12 @@ namespace DroidKit_OnePlus_One
                         }
                         if (a == b)
                         {
-                            MessageBox.Show("No updates available...");
+                            await this.ShowMessageAsync("No update", "There inst an update right now check again later...");
                             CFU.Content = "Check for updates";
                         }
                         if (a > b)
                         {
-                            MessageBox.Show("Your version number is different. Are you running a development build?");
+                            await this.ShowMessageAsync("OK...", "The version number is different are you running a development build?");
                         }
                     }
                 }
@@ -678,23 +683,22 @@ namespace DroidKit_OnePlus_One
             }
         }
 
-        private void Complete(object sender, AsyncCompletedEventArgs e)
+        private async void Complete(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Cancelled == true)
             {   
                 File.Delete(doclocation + "/toolkit.exe");
-                MessageBox.Show("Download has been cancelled.");
+                await this.ShowMessageAsync("Cancelled!", "The download has been stopped...");
                 CFU.Content = "Check for updates";
             }
 
             if (File.Exists(doclocation + "/toolkit.exe"))
             {
-                MessageBox.Show("Download completed! The Program will now exit and update...");
                 Process.Start(doclocation + "/toolkit.exe");
                 this.Close();
             }
             if (!File.Exists(doclocation + "/toolkit.exe") && e.Cancelled == false)
-            { MessageBox.Show("There has been an error downloading the update. Please download it from the forum thread..."); }
+            { await this.ShowMessageAsync("Error", "There was a fatal error please report this in the XDA thread"); }
         }
         private void progress(object sender, DownloadProgressChangedEventArgs e)
         {
