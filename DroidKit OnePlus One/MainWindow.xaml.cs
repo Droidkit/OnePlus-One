@@ -336,7 +336,7 @@ namespace DroidKit_OnePlus_One
             {
                 if (File.Exists(doclocation + "/OOS.zip"))
                 {
-                    await this.ShowMessageAsync("Complete", "The Recovery flashed without a problem!");
+                    await this.ShowMessageAsync("Error!", "You have already downloaded the zip you don't need to download it again!");
                 }
                 if (!File.Exists(doclocation + "/OOS.zip"))
                 {
