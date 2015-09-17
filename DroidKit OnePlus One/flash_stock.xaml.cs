@@ -16,6 +16,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using System.ComponentModel;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace DroidKit_OnePlus_One
 {
@@ -28,14 +29,14 @@ namespace DroidKit_OnePlus_One
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             if (File.Exists(path + @"\stock.zip"))
             {
                 {
                     if (GB16.IsChecked == false && GB64.IsChecked == false)
                     {
-                        MessageBox.Show("Please select either the 16 or 64 GB software appropriate to your phone model.");
+                        await this.ShowMessageAsync("Error", "Please select your device size");
                         return;
                     }
                     if (GB16.IsChecked == true)
@@ -103,9 +104,10 @@ namespace DroidKit_OnePlus_One
             throw new NotImplementedException();
         }
 
-        private void doneflash64(object sender, RunWorkerCompletedEventArgs e)
-        { bar.Value = 100;
-        MessageBox.Show("The phone will be rebooting back to stock" + "\n" + "This will take a few minutes");
+        private async void doneflash64(object sender, RunWorkerCompletedEventArgs e)
+        {
+            bar.Value = 100;
+           await this.ShowMessageAsync("Complete", "Your Device has restored to stock. It will now reboot!");
         }
        
         private void doflash16(object sender, DoWorkEventArgs e)
@@ -146,10 +148,10 @@ namespace DroidKit_OnePlus_One
         {throw new NotImplementedException();
         }
 
-        private void doneflash16(object sender, RunWorkerCompletedEventArgs e)
+        private async void doneflash16(object sender, RunWorkerCompletedEventArgs e)
         {
             bar.Value = 100;
-            MessageBox.Show("The phone will be rebooting back to stock" + "\n" + "This will take a few minutes");
+            await this.ShowMessageAsync("Complete", "Your Device has restored to stock. It will now reboot!");
         }
     }
 }

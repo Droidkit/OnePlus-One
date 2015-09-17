@@ -36,7 +36,6 @@ namespace DroidKit_OnePlus_One
             BackgroundWorker loadapp = new BackgroundWorker();
             loadapp.DoWork += new DoWorkEventHandler(load_splash);
             loadapp.RunWorkerCompleted += new RunWorkerCompletedEventHandler(load_done);
-            load.Value = 10;
             loadapp.RunWorkerAsync();
         }
 
@@ -46,7 +45,6 @@ namespace DroidKit_OnePlus_One
             { }
             if (!Directory.Exists(doclocation))
             { Directory.CreateDirectory(doclocation); }
-            Dispatcher.BeginInvoke(new Action(() => load.Value = 30));
             ProcessStartInfo startup = new ProcessStartInfo();
             startup.CreateNoWindow = true;
             startup.FileName = "adb.exe";
@@ -57,7 +55,6 @@ namespace DroidKit_OnePlus_One
             Dispatcher.BeginInvoke(new Action(() => status.Text = "Starting ADB"));
             var process = Process.Start(startup);
             process.WaitForExit(50000);
-            Dispatcher.BeginInvoke(new Action(() => load.Value = 50));
             Dispatcher.BeginInvoke(new Action(() => status.Text = "Checking for updates"));
             try
             {
@@ -77,13 +74,11 @@ namespace DroidKit_OnePlus_One
                         Version b = new Version(content);
                         if (b > a)
                         {
-                            Dispatcher.BeginInvoke(new Action(() => load.Value = 70));
                             Dispatcher.BeginInvoke(new Action(() => status.Text = "Update available!"));
                             Thread.Sleep(2000);
                         }
                         else
                         {
-                            Dispatcher.BeginInvoke(new Action(() => load.Value = 70));
                             Dispatcher.BeginInvoke(new Action(() => status.Text = "No Update available!"));
                             Thread.Sleep(2000);
                         }
@@ -92,7 +87,6 @@ namespace DroidKit_OnePlus_One
             }
             catch(Exception ex)
             {
-                Dispatcher.BeginInvoke(new Action(() => load.Value = 70));
                 Dispatcher.BeginInvoke(new Action (() => status.Text = "No Internet Connection." + "\n "+ex.Message));
                 Thread.Sleep(2000);
             }
@@ -100,7 +94,6 @@ namespace DroidKit_OnePlus_One
         }
              private void load_done(object sender, RunWorkerCompletedEventArgs e)
         {
-               load.Value = 100;
                MainWindow m = new MainWindow();
                status.Text = "Loading GUI...";
                Thread.Sleep(1500);
